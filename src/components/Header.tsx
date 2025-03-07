@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import { FiPhone, FiMail, FiMapPin } from "react-icons/fi"; // Standard icons
-
 const Header: React.FC = () => {
   const [name, setName] = useState("SHAMILA KHAN");
   const [role, setRole] = useState("Experienced FRONTEND DEVELOPER | UI/UX Designer");
@@ -68,7 +67,9 @@ const Header: React.FC = () => {
                   className="border border-gray-300 rounded p-2 w-full"
                 />
               ) : (
-                <span onClick={() => setEditingField(field)}>{value || "N/A"}</span>
+                <span onClick={() => setEditingField(field as "phone" | "email" | "address")}>
+                  {value || "N/A"}
+                </span>
               )}
             </div>
           ))}
