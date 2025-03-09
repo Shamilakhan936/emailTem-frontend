@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import Resume2 from './components/Resume';
+import Resume from './components/Resume';
 
 const Home: NextPage = () => {
   return (
