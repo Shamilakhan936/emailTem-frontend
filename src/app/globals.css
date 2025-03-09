@@ -1,18 +1,15 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
+  --background: #f6f6f6;
   --foreground: #171717;
-  --font-sans: Arial, Helvetica, sans-serif;
-  --font-mono: 'Fira Code', monospace;
-  --font-sub: 'Rubik', 'Arial';
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
-  
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -25,25 +22,32 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-mono);
+  font-family: Inter, Helvetica, sans-serif;
+
 }
-@media print {
-  .page {
-    page-break-after: always !important; /* Forces page break */
-    display: block !important; /* Ensures visibility */
-  }
+@page {
+  size: A4;
+  margin: 20mm; /* Adjust the margins as needed */
+}
 
-  .break-before-page {
-    page-break-before: always !important; /* Forces new page */
-  }
+.page {
+  page-break-before: always;
+}
 
-  .avoid-break {
-    page-break-inside: avoid !important; /* Prevents content from splitting */
-  }
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 
-  /* Fix for some browsers */
-  body {
-    print-color-adjust: exact;
-    -webkit-print-color-adjust: exact;
-  }
+.page:first-of-type {
+  page-break-before: auto;
+}
+
+.page:last-of-type {
+  page-break-after: auto;
+}
+
+.page-break {
+  page-break-before: always;
 }
