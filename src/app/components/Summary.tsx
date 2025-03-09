@@ -84,7 +84,7 @@ const Summary = () => {
               }`}
             onClick={() => toggleEditing(summary.id, true)}
           >
-            <h2 className="text-[16px] border-b-[1px] border-grey-300 text-[#384347] font-normal mb-[5px]">
+            <h2 className="text-[16px] max-sm:font-bold border-b-[1px] border-grey-300 text-[#384347] font-normal mb-[5px]">
               SUMMARY
             </h2>
 

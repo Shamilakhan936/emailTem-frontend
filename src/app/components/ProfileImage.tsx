@@ -4,7 +4,7 @@ const ProfileImage = () => {
   return (
     <div className="flex flex-col items-center">
       <Image
-        src="/profile.png"
+        src="/profile.jpeg"
         alt="Profile picture of Abdul Rashid Khan"
         className="rounded-full mb-4"
         width={120}

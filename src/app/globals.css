@@ -10,24 +10,26 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-inter: var(--font-inter);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --font: var(--font-inter);
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Inter, Helvetica, sans-serif;
+  font-family:  var(--font-inter);
 
 }
 @page {
   size: A4;
-  margin: 20mm; /* Adjust the margins as needed */
+  margin: 20mm; 
 }
 
 .page {
@@ -50,4 +52,12 @@ body {
 
 .page-break {
   page-break-before: always;
+}
+.page-container {
+  width: 800px;
+  min-height: 1123px;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
 }

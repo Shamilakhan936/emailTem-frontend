@@ -1,16 +1,17 @@
-import { FaPhone, FaEnvelope, FaGithub, FaMapMarkerAlt } from "react-icons/fa";
+import { MdPhone } from "react-icons/md"; // Better phone icon
+import { FaEnvelope, FaGithub, FaMapMarkerAlt } from "react-icons/fa";
 import data from "../lib/data"; // Import the data
 
 const Header: React.FC = () => {
   return (
     <div className="max-w-md bg-white dark:bg-gray-900">
-      <h2 className="text-[28px] leading-[30px] font-semibold text-gray-900 dark:text-white">
+      <h2 className="md:text-[28px] text-[24px] leading-[30px] font-semibold text-gray-900 dark:text-white">
         {data.name}
       </h2>
       <p className="text-[#008CFF] text-[16px]">{data.role}</p>
-      <div className="mt-3 text-gray-700 dark:text-gray-300 flex flex-wrap gap-[5px] text-[13px]">
+      <div className="mt-3 max-sm:flex-col text-gray-700 dark:text-gray-300 flex flex-wrap gap-[5px] text-[13px]">
         <p className="flex items-center text-black gap-2">
-          <FaPhone className="text-gray-500" /> {data.phone}
+          <MdPhone className="text-gray-500" /> {data.phone} {/* Updated Icon */}
         </p>
         <p className="flex items-center text-black gap-2">
           <FaEnvelope className="text-gray-500" /> {data.email}
