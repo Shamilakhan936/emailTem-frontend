@@ -3,7 +3,7 @@ import { skills } from "../lib/data";
 const Skills = () => {
   return (
     <div className="mt-6">
-      <h3 className="text-[16px] font-normal max-sm:font-bold border-b-[1px] border-white mb-2">
+      <h3 className="text-[16px] font-normal max-sm:font-bold border-b-[1px] border-white mb-2 pb-[5px]">
         SKILLS
       </h3>
       <ul className="mt-2 md:text-[12px] text-[14px]">

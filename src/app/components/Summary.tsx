@@ -12,24 +12,21 @@ const Summary = () => {
     },
   ]);
 
-  const [editing, setEditing] = useState(false); // Controls dark overlay
+  const [editing, setEditing] = useState(false); 
   const editRef = useRef(null);
 
-  // Function to add a new summary
   const addNewEntry = () => {
     setSummaries([
       ...summaries,
-      { id: Date.now(), text: "", isEditing: true }, // New entry starts in editing mode
+      { id: Date.now(), text: "", isEditing: true }, 
     ]);
     setEditing(true);
   };
 
-  // Function to delete a summary
   const deleteEntry = (id: number) => {
     setSummaries(summaries.filter((summary) => summary.id !== id));
   };
 
-  // Function to update summary text
   const updateSummaryText = (id: number, newText: string) => {
     setSummaries(
       summaries.map((summary) =>
@@ -38,7 +35,6 @@ const Summary = () => {
     );
   };
 
-  // Function to toggle editing mode
   const toggleEditing = (id: number, state: boolean) => {
     setSummaries(
       summaries.map((summary) =>
@@ -48,7 +44,6 @@ const Summary = () => {
     setEditing(state);
   };
 
-  // Click outside to close editing
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (editRef.current && !(editRef.current as any).contains(event.target)) {
@@ -68,14 +63,13 @@ const Summary = () => {
 
   return (
     <>
-      {/* Dark overlay when editing */}
       {editing && (
         <div className="fixed inset-0 bg-black/50 z-10 transition-opacity" />
       )}
 
       <div
         ref={editRef}
-        className="relative w-full mt-6 cursor-pointer max-w-2xl z-20"
+        className="relative w-full mt-12 cursor-pointer max-w-2xl z-20"
       >
         {summaries.map((summary) => (
           <div
@@ -84,24 +78,22 @@ const Summary = () => {
               }`}
             onClick={() => toggleEditing(summary.id, true)}
           >
-            <h2 className="text-[16px] max-sm:font-bold border-b-[1px] border-grey-300 text-[#384347] font-normal mb-[5px]">
+            <h2 className="text-[16px] max-sm:font-bold border-b-[1px] border-[#bdbdbd] text-[#2c2a2a] font-normal mb-[5px] pb-[5px]">
               SUMMARY
             </h2>
 
             {summary.isEditing ? (
               <textarea
-                className="w-full min-h-[150px] p-4 border border-green-500 rounded text-gray-700 text-[12px] focus:outline-none resize-none overflow-hidden"
+                className="w-full min-h-[150px] p-4 border border-green-500 rounded text-[#2c2a2a] text-[12px] focus:outline-none resize-none overflow-hidden"
                 value={summary.text}
                 onChange={(e) => updateSummaryText(summary.id, e.target.value)}
                 autoFocus
               />
             ) : (
-              <p className="text-gray-700 text-[12px]">
+              <p className="text-[#2c2a2a] text-[12px]">
                 {summary.text || "Click to edit..."}
               </p>
             )}
-
-            {/* Floating Toolbar (Appears only when editing) */}
             {summary.isEditing && (
               <div className="absolute top-[-20px] left-[30%] flex items-center space-x-2 bg-white p-2 shadow-md rounded-[10px]">
                 <button

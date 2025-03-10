@@ -1,10 +1,16 @@
 export type Achievement = {
     id: number;
+    icon: string;
     title: string;
     description: string;
   };
   
-
+  export type Passion = {
+    id: number;
+    title: string;
+    description: string;
+  };
+  
   export interface HeaderData {
     name: string;
     role: string;
@@ -25,9 +31,11 @@ export type Achievement = {
   export type Education = {
     id: number;
     degree: string;
-    institution: string;
+    institution: string;  
     date: string;
+
   };
+  
   
 
 
@@ -35,6 +43,7 @@ export type Achievement = {
     id: number;
     role: string;
     company: string;
+    city: string;
     date: string;
     responsibilities: string[];
   };

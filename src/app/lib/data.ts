@@ -1,109 +1,147 @@
-import { HeaderData, Achievement, Certification, Education, Experience, Language, Project, SkillCategory } from "../types/datatypes"; 
+import { HeaderData, Achievement, Certification, Education, Experience, Language, Project, SkillCategory, Passion } from "../types/datatypes";
 
 const data: HeaderData = {
-  name: "John Doe",
-  role: "Full Stack Developer",
-  phone: "+123 456 7890",
-  email: "johndoe@example.com",
-  github: "https://github.com/johndoe",
-  location: "New York, USA",
+  name: "Johnathan Alexander Doe",
+  role: "Senior Full Stack Developer",
+  phone: "+1 800 555 1234",
+  email: "john.doe@example.com",
+  github: "https://github.com/john-doe",
+  location: "San Francisco, CA, USA",
 };
-
-
-
 
 export const achievements: Achievement[] = [
   {
     id: 1,
+    icon: "trophy",
     title: "Top Performer Award",
-    description: "Recognized as the top performer for exceeding quarterly targets.",
+    description: "Recognized as the top performer for exceeding quarterly targets over 3 years.",
   },
   {
     id: 2,
+    icon: "medal",
     title: "Hackathon Winner",
-    description: "Secured 1st place in an international coding hackathon.",
+    description: "Secured 1st place in an international coding hackathon held in Berlin.",
   },
   {
     id: 3,
+    icon: "ribbon",
     title: "Best Employee of the Year",
-    description: "Awarded for outstanding contributions and leadership skills.",
+    description: "Awarded for outstanding contributions to software development and team leadership.",
   },
+  {
+    id: 4,
+    icon: "award",
+    title: "Best Student of the Year",
+    description: "Awarded for outstanding contributions to Student and team leadership.",
+  },
+  
 ];
 
-
-
+export const passion: Passion[] = [
+  {
+    id: 1,
+    title: "Software Development",
+    description: "Passionate about creating scalable software solutions and improving user experiences.",
+  },
+ 
+ 
+];
 
 export const certifications: Certification[] = [
   {
     id: 1,
-    title: "Ethical Hacker Essentials",
-    organization: "OSCD",
-    description: "Fundamentals of ethical hacking, including techniques and practices.",
+    title: "Certified Ethical Hacker (CEH)",
+    organization: "EC-Council",
+    description: "Mastered the skills necessary to protect against cyber threats through ethical hacking techniques.",
   },
   {
     id: 2,
-    title: "Introduction to Cyber Security",
-    organization: "CISCO",
-    description: "Comprehensive overview of cybersecurity, including best practices for safeguarding information.",
+    title: "AWS Certified Solutions Architect",
+    organization: "Amazon Web Services",
+    description: "Acquired expertise in designing and deploying scalable, highly available systems on AWS.",
   },
+  {
+    id: 3,
+    title: "Certified Kubernetes Administrator (CKA)",
+    organization: "Linux Foundation",
+    description: "Certified as a Kubernetes administrator with advanced knowledge of container orchestration.",
+  }
 ];
 
 export const education: Education[] = [
   {
     id: 1,
     degree: "Higher Secondary School Certificate",
-    institution: "Main Higher Secondary School",
-    date: "08/2017 - 08/2019",
+    institution: "Springfield High School",
+    date: "09/2013 - 06/2015",
   },
   {
     id: 2,
     degree: "Bachelor of Computer Science",
-    institution: "XYZ University",
-    date: "09/2019 - 06/2023",
+    institution: "Tech University",
+    date: "09/2015 - 06/2019",
+  },
+  {
+    id: 3,
+    degree: "Master of Science in Computer Engineering",
+    institution: "Stanford University",
+    date: "09/2019 - 06/2021",
   },
 ];
-
-
 
 export const experience: Experience[] = [
   {
     id: 1,
-    role: "Backend Developer",
-    company: "Company XYZ",
-    date: "01/2021 - 08/2021",
+    role: "Senior Backend Developer",
+    company: "Tech Solutions Inc.",
+    city: "San Francisco, CA",
+    date: "02/2021 - Present",
     responsibilities: [
-      "Developed and maintained web and software solutions.",
-      "Designed and implemented RESTful APIs using modern frameworks.",
-      "Worked with databases such as MySQL, MongoDB, and PostgreSQL.",
-      "Integrated authentication and authorization mechanisms using JWT.",
-      "Deployed and managed websites on cloud platforms.",
-      "Designed and implemented API integrations for third-party services.",
+      "Led the development of scalable backend systems for major clients.",
+      "Designed and optimized RESTful APIs using Node.js and Express.",
+      "Implemented microservices architecture to improve system efficiency.",
+      "Collaborated with frontend teams to ensure seamless API integration.",
+      "Mentored junior developers on backend technologies and best practices.",
+      "Managed cloud infrastructure using AWS, ensuring high availability.",
+      "Developed real-time data processing systems using Kafka and AWS Lambda.",
     ],
   },
   {
     id: 2,
-    role: "Laravel Developer",
-    company: "Company ABC",
-    date: "08/2020 - 01/2021",
+    role: "Full Stack Developer",
+    company: "XYZ Corp.",
+    city: "New York, NY",
+    date: "05/2019 - 01/2021",
     responsibilities: [
-      "Developed and maintained custom software solutions.",
-      "Designed and implemented RESTful APIs using Laravel and React.",
-      "Developed and deployed scalable applications on cloud platforms.",
-      "Built and optimized interactive user interfaces with React.",
-      "Implemented database management solutions using MySQL and MongoDB.",
+      "Developed and maintained web applications using React, Node.js, and MongoDB.",
+      "Worked on both client-side and server-side components, ensuring seamless functionality.",
+      "Integrated third-party APIs for real-time data updates and push notifications.",
+      "Collaborated with UX/UI designers to improve user interfaces.",
+      "Optimized website performance to reduce load times and increase user engagement.",
+      "Maintained and updated application security protocols, ensuring data protection.",
+      "Utilized Docker for containerization and streamlined deployment processes.",
+    ],
+  },
+  {
+    id: 3,
+    role: "Junior Web Developer",
+    company: "ABC Enterprises",
+    city: "Los Angeles, CA",
+    date: "06/2017 - 04/2019",
+    responsibilities: [
+      "Assisted in the development of internal tools and client-facing applications.",
+      "Worked on bug fixes, refactoring code, and improving existing website features.",
+      "Built responsive and dynamic pages using HTML5, CSS3, and JavaScript.",
+      "Integrated CMS (Content Management Systems) for easy content updates.",
+      "Collaborated with senior developers to implement best practices and coding standards.",
+      "Contributed to weekly sprint meetings, discussing project timelines and progress.",
     ],
   },
 ];
 
-
-
-
-
 export const languages: Language[] = [
   { name: "English", level: "Native", proficiency: 5 },
-  { name: "Urdu", level: "Native", proficiency: 5 },
-  { name: "Burushki", level: "Advanced", proficiency: 4 },
-  { name: "Shina", level: "Intermediate", proficiency: 3 },
+  { name: "Spanish", level: "Fluent", proficiency: 4 },
 ];
 
 export const projects: Project[] = [
@@ -124,23 +162,17 @@ export const projects: Project[] = [
   },
   {
     id: 4,
-    title: "ShopEase",
-    description: "An e-commerce platform offering seamless shopping experiences with AI-based recommendations.",
+    title: "HealthTrack",
+    description: "A mobile-friendly app designed to monitor personal health metrics and fitness goals.",
   },
-  {
-    id: 5,
-    title: "DevConnect",
-    description: "A networking platform for developers to share knowledge, collaborate, and showcase projects.",
-  },
+
 ];
 
-
 export const skills: SkillCategory[] = [
-  { id: 1, skills: ["PHP", "Laravel", "CSS", "Cybersecurity"] },
-  { id: 2, skills: ["HTML", "HTML5", "JavaScript", "MySQL"] },
-  { id: 3, skills: ["React", "MongoDB", "Node.js"] },
-  { id: 4, skills: ["Python", "Django", "TypeScript"] },
-  { id: 5, skills: ["Java", "Kotlin", "Oracle"] },
+  { id: 1, skills: [ "Laravel",  "Docker", "AWS", "Microservices"] },
+  { id: 2, skills: [ "JavaScript", "TypeScript", "React", "Node.js"] },
+  { id: 3, skills: ["MongoDB", "PostgreSQL", "Redis", "Firebase"] },
+  { id: 5, skills: ["Java", "Spring Boot", "Kotlin", "Android "] },
 ];
 
 export default data;
