@@ -71,22 +71,18 @@ export const certifications: Certification[] = [
 export const education: Education[] = [
   {
     id: 1,
-    degree: "Higher Secondary School Certificate",
-    institution: "Springfield High School",
-    date: "09/2013 - 06/2015",
-  },
-  {
-    id: 2,
     degree: "Bachelor of Computer Science",
     institution: "Tech University",
     date: "09/2015 - 06/2019",
+    city: "New York City, NY"
   },
   {
-    id: 3,
-    degree: "Master of Science in Computer Engineering",
-    institution: "Stanford University",
-    date: "09/2019 - 06/2021",
-  },
+    id: 2,
+    degree: "Higher Secondary School Certificate",
+    institution: "Springfield High School",
+    date: "09/2013 - 06/2015",
+    city: "Springfield, IL"
+  }
 ];
 
 export const experience: Experience[] = [

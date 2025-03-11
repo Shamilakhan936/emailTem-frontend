@@ -1,145 +1,70 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import { FiEdit2, FiSave, FiX, FiPlus, FiTrash2 } from "react-icons/fi";
+import { useState, useEffect } from "react";
+import { FiEdit2, FiSave, FiX } from "react-icons/fi";
 
 const Summary = () => {
-  const [summaries, setSummaries] = useState([
-    {
-      id: Date.now(),
-      text: "I am a Backend Developer with over 3 years of experience specializing in building scalable web applications using technologies like Express.js, Laravel, React.js, and Python. My expertise includes API development and optimizing backend processes. I strive to create secure and efficient systems that enhance user experience while implementing best practices in performance optimization.",
-      isEditing: false,
-    },
-  ]);
+  const defaultSummary = "I am a Backend Developer with over 3 years of experience specializing in building scalable web applications using technologies like Express.js, Laravel, React.js, and Python. My expertise includes API development and optimizing backend processes. I strive to create secure and efficient systems that enhance user experience while implementing best practices in performance optimization.";
 
-  const [editing, setEditing] = useState(false); 
-  const editRef = useRef(null);
+  const [summary, setSummary] = useState(defaultSummary);
+  const [isEditing, setIsEditing] = useState(false);
 
-  const addNewEntry = () => {
-    setSummaries([
-      ...summaries,
-      { id: Date.now(), text: "", isEditing: true }, 
-    ]);
-    setEditing(true);
-  };
-
-  const deleteEntry = (id: number) => {
-    setSummaries(summaries.filter((summary) => summary.id !== id));
-  };
-
-  const updateSummaryText = (id: number, newText: string) => {
-    setSummaries(
-      summaries.map((summary) =>
-        summary.id === id ? { ...summary, text: newText } : summary
-      )
-    );
-  };
-
-  const toggleEditing = (id: number, state: boolean) => {
-    setSummaries(
-      summaries.map((summary) =>
-        summary.id === id ? { ...summary, isEditing: state } : summary
-      )
-    );
-    setEditing(state);
-  };
-
+  // Load data from localStorage on component mount
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (editRef.current && !(editRef.current as any).contains(event.target)) {
-        setSummaries(summaries.map((s) => ({ ...s, isEditing: false })));
-        setEditing(false);
-      }
-    };
-
-    if (editing) {
-      document.addEventListener("mousedown", handleClickOutside);
+    const savedData = localStorage.getItem('summaryData');
+    if (savedData) {
+      setSummary(JSON.parse(savedData));
     }
+  }, []);
 
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [editing, summaries]);
+  const handleSave = () => {
+    localStorage.setItem('summaryData', JSON.stringify(summary));
+    setIsEditing(false);
+  };
 
   return (
-    <>
-      {editing && (
-        <div className="fixed inset-0 bg-black/50 z-10 transition-opacity" />
+    <div className="relative mb-6">
+      <h2 className="text-[16px] font-normal max-sm:font-bold text-[#2c2a2a] border-b-[1px] border-[#bdbdbd] pb-[5px]">
+        SUMMARY
+      </h2>
+      <div className="mt-2 text-[12px] text-[#2c2a2a]">
+        {isEditing ? (
+          <textarea
+            className="w-full bg-transparent border border-gray-300 focus:border-blue-500 focus:outline-none p-2 min-h-[100px] resize-none rounded"
+            value={summary}
+            onChange={(e) => setSummary(e.target.value)}
+          />
+        ) : (
+          <p>{summary}</p>
+        )}
+      </div>
+
+      {isEditing && (
+        <div className="absolute right-0 -top-10 flex items-center space-x-2 bg-white p-2 shadow-md rounded-[10px]">
+          <button
+            className="text-green-500 p-1 hover:bg-gray-200 rounded"
+            onClick={handleSave}
+          >
+            <FiSave size={14} />
+          </button>
+          <button
+            className="text-red-500 p-1 hover:bg-gray-200 rounded"
+            onClick={() => setIsEditing(false)}
+          >
+            <FiX size={14} />
+          </button>
+        </div>
       )}
 
-      <div
-        ref={editRef}
-        className="relative w-full mt-12 cursor-pointer max-w-2xl z-20"
-      >
-        {summaries.map((summary) => (
-          <div
-            key={summary.id} className={`relative transition-all mb-4 bg-white ${
-                summary.isEditing ? "p-4" : ""
-              }`}
-            onClick={() => toggleEditing(summary.id, true)}
-          >
-            <h2 className="text-[16px] max-sm:font-bold border-b-[1px] border-[#bdbdbd] text-[#2c2a2a] font-normal mb-[5px] pb-[5px]">
-              SUMMARY
-            </h2>
-
-            {summary.isEditing ? (
-              <textarea
-                className="w-full min-h-[150px] p-4 border border-green-500 rounded text-[#2c2a2a] text-[12px] focus:outline-none resize-none overflow-hidden"
-                value={summary.text}
-                onChange={(e) => updateSummaryText(summary.id, e.target.value)}
-                autoFocus
-              />
-            ) : (
-              <p className="text-[#2c2a2a] text-[12px]">
-                {summary.text || "Click to edit..."}
-              </p>
-            )}
-            {summary.isEditing && (
-              <div className="absolute top-[-20px] left-[30%] flex items-center space-x-2 bg-white p-2 shadow-md rounded-[10px]">
-                <button
-                  className="bg-green-500 text-white px-2 py-1 flex items-center space-x-1 rounded-md hover:bg-green-600 transition"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    addNewEntry();
-                  }}
-                >
-                  <FiPlus size={14} />
-                  <span className="text-xs">New Entry</span>
-                </button>
-
-                <button
-                  className="text-red-500 p-1 hover:bg-gray-200 rounded"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    deleteEntry(summary.id);
-                  }}
-                >
-                  <FiTrash2 size={14} />
-                </button>
-                <button
-                  className="text-green-500 p-1 hover:bg-gray-200 rounded"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    toggleEditing(summary.id, false);
-                  }}
-                >
-                  <FiSave size={14} />
-                </button>
-                <button
-                  className="text-red-500 p-1 hover:bg-gray-200 rounded"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    toggleEditing(summary.id, false);
-                  }}
-                >
-                  <FiX size={14} />
-                </button>
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
-    </>
+      {!isEditing && (
+        <button
+          className="absolute top-0 right-0 text-gray-400 hover:text-gray-600"
+          onClick={() => setIsEditing(true)}
+        >
+          <FiEdit2 size={16} />
+        </button>
+      )}
+    </div>
   );
 };
 

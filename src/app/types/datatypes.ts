@@ -33,7 +33,7 @@ export type Achievement = {
     degree: string;
     institution: string;  
     date: string;
-
+    city: string;
   };
   
   
