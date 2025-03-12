@@ -41,6 +41,44 @@ const defaultLanguages = [{
   proficiency: 0
 }];
 
+const defaultSkills = [{
+  id: 1,
+  name: '',
+  skills: []
+}];
+
+const defaultAchievements = [{
+  id: 1,
+  icon: '',
+  title: '',
+  description: '',
+  achievement: ''
+}];
+
+const defaultCertifications = [{
+  id: 1,
+  title: '',
+  organization: '',
+  description: '',
+  date: '',
+  issuer: ''
+}];
+
+const defaultProjects = [{
+  id: 1,
+  title: '',
+  name: '',
+  description: '',
+  technologies: []
+}];
+
+const defaultPassion = [{
+  id: 1,
+  title: '',
+  name: '',
+  description: ''
+}];
+
 const Home: NextPage = () => {
   return (
     <div className="max-w-[840px] max-h-full mx-auto my-8 bg-white shadow-lg border-[1px] border-[#bdbdbd]">
@@ -51,7 +89,13 @@ const Home: NextPage = () => {
           education={defaultEducation}
           languages={defaultLanguages}
         />
-        <LeftColumn />
+        <LeftColumn 
+          skills={defaultSkills}
+          achievements={defaultAchievements}
+          certifications={defaultCertifications}
+          projects={defaultProjects}
+          passion={defaultPassion}
+        />
       </div>
     </div>
   );
