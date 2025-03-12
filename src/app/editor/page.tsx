@@ -1,12 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import Resume from './components/Resume/index';
-import HeaderForm from './components/forms/HeaderForm';
-import ExperienceForm from './components/forms/ExperienceForm';
-import EducationForm from './components/forms/EducationForm';
-import AboutForm from './components/forms/AboutForm';
-import type { HeaderData, Experience, Education, SkillCategory, Achievement, Certification, Language, Project, Passion } from './types/datatypes';
+import Resume from '../components/Resume/index';
+import HeaderForm from '../components/forms/HeaderForm';
+import ExperienceForm from '../components/forms/ExperienceForm';
+import EducationForm from '../components/forms/EducationForm';
+import AboutForm from '../components/forms/AboutForm';
+import type { HeaderData, Experience, Education, SkillCategory, Achievement, Certification, Language, Project, Passion } from '../types/datatypes';
 import headerData, { 
   experience as initialExperience,
   education as initialEducation,
@@ -16,7 +16,7 @@ import headerData, {
   certifications as initialCertifications,
   projects as initialProjects,
   passion as initialPassion
-} from './lib/data';
+} from '../lib/data';
 
 type TabType = 'header' | 'experience' | 'education' | 'skills';
 
@@ -27,7 +27,7 @@ const tabs: { id: TabType; label: string }[] = [
   { id: 'skills', label: 'ABOUT' }
 ];
 
-export default function Home() {
+export default function EditorPage() {
   const [activeTab, setActiveTab] = useState<TabType>('header');
   const [profileImage, setProfileImage] = useState<string>("/images/default-avatar.png");
   const [resumeData, setResumeData] = useState({
@@ -116,50 +116,47 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
-      <div className="max-w-[1440px] mx-auto flex gap-8">
-        <div className="w-[380px] flex-shrink-0">
-          <div className="bg-white rounded-lg shadow-sm">
-            <div className="sticky top-6 overflow-y-auto ">
-              <div className="border-b border-gray-200">
-                <nav className="flex" aria-label="Tabs">
-                  {tabs.map((tab) => (
-                    <button
-                      key={tab.id}
-                      onClick={() => setActiveTab(tab.id)}
-                      className={`
-                        grow py-4 px-1 text-center border-b-2 font-medium text-sm
-                        ${activeTab === tab.id
-                          ? 'border-[#1a4977] text-[#1a4977]'
-                          : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                        }
-                      `}
-                    >
-                      {tab.label}
-                    </button>
-                  ))}
-                </nav>
-              </div>
-              <div className="p-6">
-                {renderForm()}
-              </div>
-            </div>
-          </div>
+    <div className="flex h-screen bg-gray-100">
+      {/* Form Panel */}
+      <div className="w-[400px] h-full overflow-auto bg-white border-r border-gray-200 flex flex-col">
+        <div className="border-b border-gray-200">
+          <nav className="flex">
+            {tabs.map((tab, index) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`
+                  flex-1 py-4 px-1 text-center border-b-2 font-medium text-sm
+                  ${activeTab === tab.id 
+                    ? 'border-blue-500 text-blue-600' 
+                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}
+                  ${index > 0 ? 'border-l border-gray-200' : ''}
+                `}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </nav>
         </div>
-        <div className="flex-1 bg-white rounded-lg shadow-sm">
-          <Resume
-            header={resumeData.header}
-            experience={resumeData.experience}
-            education={resumeData.education}
-            languages={resumeData.languages}
-            skills={resumeData.skills}
-            achievements={resumeData.achievements}
-            certifications={resumeData.certifications}
-            projects={resumeData.projects}
-            passion={resumeData.passion}
-            profileImage={profileImage}
-          />
+        <div className="p-6 flex-1 overflow-auto">
+          {renderForm()}
         </div>
+      </div>
+
+      {/* Resume Preview */}
+      <div className="flex-1 h-full overflow-auto p-8">
+        <Resume 
+          header={resumeData.header}
+          experience={resumeData.experience}
+          education={resumeData.education}
+          languages={resumeData.languages}
+          skills={resumeData.skills}
+          achievements={resumeData.achievements}
+          certifications={resumeData.certifications}
+          projects={resumeData.projects}
+          passion={resumeData.passion}
+          profileImage={profileImage}
+        />
       </div>
     </div>
   );

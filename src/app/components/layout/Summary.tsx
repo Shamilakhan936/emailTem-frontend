@@ -73,7 +73,7 @@ const Summary = () => {
               autoFocus
             />
           ) : (
-            <p className="text-gray-700 text-[12px]">{summary.text || "Click to edit..."}</p>
+            <p className="text-skills text-[12px]">{summary.text || "Click to edit..."}</p>
           )}
 
           {/* Floating Toolbar (Appears only when editing) */}

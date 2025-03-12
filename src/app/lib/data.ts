@@ -7,6 +7,7 @@ const data: HeaderData = {
   email: "john.doe@example.com",
   github: "https://github.com/john-doe",
   location: "San Francisco, CA, USA",
+  summary: "Experienced Full Stack Developer with a proven track record in developing scalable web applications and leading development teams. Proficient in modern web technologies and best practices."
 };
 
 export const achievements: Achievement[] = [
@@ -22,18 +23,7 @@ export const achievements: Achievement[] = [
     title: "Hackathon Winner",
     description: "Secured 1st place in an international coding hackathon held in Berlin.",
   },
-  {
-    id: 3,
-    icon: "ribbon",
-    title: "Best Employee of the Year",
-    description: "Awarded for outstanding contributions to software development and team leadership.",
-  },
-  {
-    id: 4,
-    icon: "award",
-    title: "Best Student of the Year",
-    description: "Awarded for outstanding contributions to Student and team leadership.",
-  },
+  
   
 ];
 
@@ -60,12 +50,7 @@ export const certifications: Certification[] = [
     organization: "Amazon Web Services",
     description: "Acquired expertise in designing and deploying scalable, highly available systems on AWS.",
   },
-  {
-    id: 3,
-    title: "Certified Kubernetes Administrator (CKA)",
-    organization: "Linux Foundation",
-    description: "Certified as a Kubernetes administrator with advanced knowledge of container orchestration.",
-  }
+  
 ];
 
 export const education: Education[] = [
@@ -151,24 +136,21 @@ export const projects: Project[] = [
     title: "EduSync",
     description: "An online learning platform that connects students with courses and tutors worldwide.",
   },
-  {
-    id: 3,
-    title: "HealthTrack",
-    description: "A mobile-friendly app designed to monitor personal health metrics and fitness goals.",
-  },
-  {
-    id: 4,
-    title: "HealthTrack",
-    description: "A mobile-friendly app designed to monitor personal health metrics and fitness goals.",
-  },
-
+ 
 ];
 
 export const skills: SkillCategory[] = [
-  { id: 1, skills: [ "Laravel",  "Docker", "AWS", "Microservices"] },
-  { id: 2, skills: [ "JavaScript", "TypeScript", "React", "Node.js"] },
-  { id: 3, skills: ["MongoDB", "PostgreSQL", "Redis", "Firebase"] },
-  { id: 5, skills: ["Java", "Spring Boot", "Kotlin", "Android "] },
+  { 
+    id: 1, 
+    name: 'Backend & DevOps',
+    skills: [ "html", "css", "javascript", "Docker", "AWS"] 
+  },
+  { 
+    id: 2, 
+    name: 'Frontend & JavaScript',
+    skills: [ "JavaScript", "TypeScript", "React", "Node.js"] 
+  },
+  
 ];
 
 export default data;

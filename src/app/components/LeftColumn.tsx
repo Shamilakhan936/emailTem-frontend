@@ -1,24 +1,26 @@
-import ProfileImage from "./ProfileImage";
-import Languages from "./Languages";
-import Skills from "./Skills";
-import Projects from "./Courses";
+import { Achievement, Certification, Project, Passion, SkillCategory } from '../types/datatypes';
+import SkillsSection from "./Skills";
 import Achievements from "./Achievements";
-import Passion from "./PassionComponent";
+import Certifications from "./Certifications";
+import Projects from "./Projects";
+import Passions from "./Passions";
 
-const LeftColumn = () => {
+interface LeftColumnProps {
+  skills: SkillCategory[];
+  achievements: Achievement[];
+  certifications: Certification[];
+  projects: Project[];
+  passion: Passion[];
+}
+
+export default function LeftColumn({ skills, achievements, certifications, projects, passion }: LeftColumnProps) {
   return (
-    <div className="md:bg-[rgb(34,64,92)] font-inter bg-white md:text-[#e6e6e6] text-black md:border-t-[20px] md:border-[#233347] md:p-8 p-4 w-full md:w-[330px] font-inter">
-     
-      <div className="hidden md:block">
-        <ProfileImage />
-      </div>
-      <Achievements />
-      <Skills />
-      <Projects />
-      <Passion />
-      
+    <div className="bg-white px-6 py-5 md:px-8 md:pt-12">
+      <SkillsSection data={skills} />
+      <Achievements data={achievements} />
+      <Certifications data={certifications} />
+      <Projects data={projects} />
+      <Passions data={passion} />
     </div>
   );
-};
-
-export default LeftColumn;
+}
