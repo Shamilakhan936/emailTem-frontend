@@ -11,12 +11,10 @@ export default function Languages({ data }: LanguagesProps) {
 
   return (
     <div className="space-y-4 w-full">
-      {/* Languages Header */}
       <h2 className="text-[16px] font-normal max-sm:font-bold text-[#2c2a2a] border-b-[1px] border-[#bdbdbd] pb-[5px]">
         LANGUAGES
       </h2>
 
-      {/* Loop through the languages */}
       {data.map((language, index) => (
         <div key={index} className="flex items-center justify-between w-full">
           <span className="text-[14px] font-normal text-black w-1/3">

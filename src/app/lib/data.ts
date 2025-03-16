@@ -20,7 +20,14 @@ export const achievements: Achievement[] = [
     description: "Recognized as the top performer for exceeding quarterly targets over 3 years.",
     achievement: "Exceeded quarterly targets consistently"
   },
- 
+  {
+    id: 2,
+    icon: "award",
+    title: "Innovation Excellence Award",
+    description: "Awarded for developing a revolutionary CI/CD pipeline.",
+    achievement: "Reduced deployment time by 70%"
+  },
+  
 ];
 
 export const passion: Passion[] = [
@@ -28,8 +35,10 @@ export const passion: Passion[] = [
     id: 1,
     title: "Software Development",
     name: "Software Development",
-    description: "Passionate about creating scalable software solutions and improving user experiences."
-  }
+    description: "Passionate about creating scalable software solutions and improving user experiences.",
+    icon: "trophy"
+  },
+  
 ];
 
 export const certifications: Certification[] = [
@@ -60,7 +69,15 @@ export const education: Education[] = [
     city: "New York City, NY",
     field: "Computer Science"
   },
- 
+  {
+    id: 2,
+    degree: "Master of Science in Software Engineering",
+    institution: "Stanford University",
+    date: "09/2019 - 05/2021",
+    city: "Stanford, CA",
+    field: "Software Engineering"
+  },
+  
 ];
 
 export const experience: Experience[] = [
@@ -79,12 +96,28 @@ export const experience: Experience[] = [
       "Collaborated with frontend teams to ensure seamless API integration."
     ]
   },
+  {
+    id: 2,
+    role: "Full Stack Developer",
+    company: "Innovate Digital",
+    position: "Full Stack Developer",
+    city: "Boston, MA",
+    date: "06/2018 - 01/2021",
+    description: "Developed and maintained full-stack applications for enterprise clients",
+    responsibilities: [
+      "Built responsive web applications using React and Redux for the frontend.",
+      "Developed backend services using Node.js, Express, and MongoDB.",
+      "Implemented authentication and authorization systems using JWT and OAuth.",
+      "Optimized database queries resulting in 40% faster load times."
+    ]
+  },
+  
   
 ];
 
 export const languages: Language[] = [
   { id: 1, name: "English", level: "Native", proficiency: 5 },
-  { id: 2, name: "Spanish", level: "Fluent", proficiency: 4 }
+ 
 ];
 
 export const projects: Project[] = [
@@ -110,7 +143,6 @@ export const skills: SkillCategory[] = [
     name: 'Backend & DevOps',
     skills: ["Node.js", "React.js", "Docker", "AWS", "Typescript"] 
   },
- 
 ];
 
 export default data;

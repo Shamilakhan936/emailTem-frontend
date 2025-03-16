@@ -50,7 +50,6 @@ export default function SkillsForm({ data, onChange }: SkillsFormProps) {
     <div className="bg-white p-4 rounded-lg shadow">
       <h3 className="text-lg font-semibold mb-3">Skills</h3>
       
-      {/* Existing Skill Categories */}
       <div className="space-y-4 mb-6">
         {data.map((category, index) => (
           <div key={category.id} className="border p-3 rounded">
@@ -87,7 +86,6 @@ export default function SkillsForm({ data, onChange }: SkillsFormProps) {
         ))}
       </div>
 
-      {/* Add/Edit Form */}
       <div className="space-y-3 border-t pt-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">

@@ -82,8 +82,6 @@ const defaultPassion = [{
   description: ''
 }];
 
-// A4 dimensions in pixels at 72 DPI
-// A4 is 210mm × 297mm which is approximately 595 × 842 points
 const A4_WIDTH = 595;
 const A4_HEIGHT = 842;
 

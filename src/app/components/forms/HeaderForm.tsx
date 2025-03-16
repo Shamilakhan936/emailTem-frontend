@@ -1,5 +1,5 @@
 import { HeaderData } from '../../types/datatypes';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
 interface HeaderFormProps {
   data: HeaderData;
@@ -10,6 +10,7 @@ interface HeaderFormProps {
 
 export default function HeaderForm({ data, onChange, profileImage, onProfileImageChange }: HeaderFormProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [showTabletPreviewModal, setShowTabletPreviewModal] = useState(false);
 
   // Split name into first and last name, handling undefined case
   const nameParts = (data.name || '').split(' ');
@@ -59,8 +60,7 @@ export default function HeaderForm({ data, onChange, profileImage, onProfileImag
   return (
     <div className="bg-gray-50 min-h-screen">
       <div className="max-w-4xl mx-auto ">
-        <div className="bg-white rounded-lg shadow-lg p-4 space-y-8">
-          {/* Profile Image Section */}
+        <div className="bg-white  p-4 space-y-8">
           <div className="border-b border-gray-200 pb-6">
             <h2 className="text-xl font-semibold text-gray-900 mb-4">Profile Image</h2>
             <div className="flex items-center space-x-6">
@@ -95,7 +95,6 @@ export default function HeaderForm({ data, onChange, profileImage, onProfileImag
             </div>
           </div>
 
-          {/* Personal Information */}
           <div className="space-y-6">
             <h2 className="text-xl font-semibold text-gray-900">Personal Information</h2>
             <div className="grid grid-cols-2 gap-4">
@@ -124,7 +123,6 @@ export default function HeaderForm({ data, onChange, profileImage, onProfileImag
             </div>
           </div>
 
-          {/* Contact Information */}
           <div className="space-y-6 border-t border-gray-200 pt-6">
             <h2 className="text-xl font-semibold text-gray-900">Contact Information</h2>
             <div className="grid grid-cols-2 gap-4">
@@ -174,8 +172,6 @@ export default function HeaderForm({ data, onChange, profileImage, onProfileImag
               </div>
             </div>
           </div>
-
-          {/* Professional Information */}
           <div className="space-y-6 border-t border-gray-200 pt-6">
             <h2 className="text-xl font-semibold text-gray-900">Professional Information</h2>
             <div>
@@ -212,6 +208,22 @@ export default function HeaderForm({ data, onChange, profileImage, onProfileImag
               />
             </div>
           </div>
+
+          {showTabletPreviewModal && (
+            <div className="fixed inset-0 z-50 hidden sm:block md:hidden bg-gray-100">
+            </div>
+          )}
+
+          <button
+            onClick={() => setShowTabletPreviewModal(true)}
+            className="hidden sm:flex md:hidden px-4 py-2 bg-[#1a4977] text-white rounded-md hover:bg-[#153a5f] transition-colors items-center justify-center gap-2"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+            </svg>
+            <span>Preview Resume</span>
+          </button>
         </div>
       </div>
     </div>

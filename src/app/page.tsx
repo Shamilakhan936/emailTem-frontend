@@ -34,8 +34,9 @@ const A4_HEIGHT_MM = 297;
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState<TabType>('header');
-  const [profileImage, setProfileImage] = useState<string>("/images/default-avatar.png");
+  const [profileImage, setProfileImage] = useState<string>("/images/default-avatar.jpg");
   const [showPreviewModal, setShowPreviewModal] = useState(false);
+  const [showTabletPreviewModal, setShowTabletPreviewModal] = useState(false);
   const resumeRef = useRef<HTMLDivElement>(null);
   const [resumeData, setResumeData] = useState({
     header: headerData,
@@ -209,15 +210,18 @@ export default function Home() {
 
               {/* Mobile Preview Content */}
               <div className="flex-1 overflow-auto bg-gray-100">
-                <div className="p-4">
+                <div className="p-4 mx-auto">
                   <div 
                     ref={resumeRef}
-                    id="resume-content"
-                    className="bg-white shadow-lg mx-auto origin-top"
+                    id="mobile-resume-content"
+                    className="bg-white  mx-auto origin-top pdf-container"
                     style={{
                       width: '210mm',
-                      transform: `scale(${window.innerWidth / (210 * 3.78125)})`,
-                      marginTop: '20px'
+                      height: '297mm',
+                      transform: `scale(${Math.min(0.9, window.innerWidth / (210 * 3.78125))})`,
+                      transformOrigin: 'top center',
+                      marginBottom: '20px',
+                      overflow: 'hidden'
                     }}
                   >
                     <Resume
@@ -239,20 +243,84 @@ export default function Home() {
           </div>
         )}
 
-        {/* Desktop Preview - Hidden on Mobile */}
-        <div className="hidden md:block flex-1">
+        {/* Tablet Preview Modal */}
+        {showTabletPreviewModal && (
+          <div className="fixed inset-0 z-50 hidden sm:block md:hidden bg-gray-100">
+            <div className="min-h-screen flex flex-col">
+              {/* Modal Header */}
+              <div className="bg-white px-4 py-3 flex justify-between items-center border-b sticky top-0 z-10">
+                <div className="flex items-center gap-3">
+                  <DownloadButton contentRef={resumeRef} />
+                  <button 
+                    onClick={() => setShowTabletPreviewModal(false)}
+                    className="p-2 hover:bg-gray-100 rounded-full text-gray-500"
+                  >
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              {/* Tablet Preview Content */}
+              <div className="flex-1 overflow-auto bg-gray-100">
+                <div className="p-4 mx-auto">
+                  <div 
+                    id="tablet-resume-content"
+                    className="bg-white mx-auto origin-top pdf-container"
+                    style={{
+                      width: '210mm',
+                      height: '297mm',
+                      transform: `scale(${Math.min(0.9, window.innerWidth / (210 * 3.78125))})`,
+                      transformOrigin: 'top center',
+                      marginBottom: '20px',
+                      overflow: 'hidden'
+                    }}
+                  >
+                    <Resume
+                      header={resumeData.header}
+                      experience={resumeData.experience}
+                      education={resumeData.education}
+                      languages={resumeData.languages}
+                      skills={resumeData.skills}
+                      achievements={resumeData.achievements}
+                      certifications={resumeData.certifications}
+                      projects={resumeData.projects}
+                      passion={resumeData.passion}
+                      profileImage={profileImage}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <div className="hidden sm:block md:hidden lg:block flex-1">
           <div className="flex justify-end gap-4 mb-4">
+            {/* Preview Button for Tablet View Only */}
+            <button
+              onClick={() => setShowTabletPreviewModal(true)}
+              className="hidden sm:flex md:hidden px-4 py-2 bg-[#1a4977] text-white rounded-md hover:bg-[#153a5f] transition-colors items-center justify-center gap-2"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              </svg>
+              <span>Preview Resume</span>
+            </button>
             <DownloadButton contentRef={resumeRef} />
           </div>
-          {/* PDF Preview Container */}
           <div 
             ref={resumeRef}
-            id="resume-content"
-            className="bg-white shadow-lg print:shadow-none" 
+            id="desktop-resume-content"
+            className="bg-white print:shadow-none pdf-container" 
             style={{
               width: '210mm',
+              height: '297mm',
               margin: '0 auto',
-              position: 'relative'
+              position: 'relative',
+              overflow: 'hidden'
             }}
           >
             <Resume

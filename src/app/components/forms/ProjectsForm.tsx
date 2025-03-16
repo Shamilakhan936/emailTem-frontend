@@ -15,7 +15,6 @@ const ProjectsForm: React.FC<ProjectsFormProps> = ({ projects, onChange }) => {
   const [newTechnologies, setNewTechnologies] = useState<string[]>([]);
   const [editingProject, setEditingProject] = useState<Project | null>(null);
 
-  // Handle adding a new project
   const handleAddProject = () => {
     if (!newProjectTitle.trim()) return;
     
@@ -29,18 +28,15 @@ const ProjectsForm: React.FC<ProjectsFormProps> = ({ projects, onChange }) => {
     
     onChange([...projects, newProject]);
     
-    // Reset form
     setNewProjectTitle('');
     setNewProjectDescription('');
     setNewTechnologies([]);
   };
 
-  // Handle removing a project
   const handleRemoveProject = (id: number) => {
     onChange(projects.filter(project => project.id !== id));
   };
 
-  // Handle updating a project
   const handleUpdateProject = () => {
     if (!editingProject) return;
     
@@ -51,20 +47,16 @@ const ProjectsForm: React.FC<ProjectsFormProps> = ({ projects, onChange }) => {
     onChange(updatedProjects);
     setEditingProject(null);
   };
-
-  // Handle adding a technology to a new project
   const handleAddTechnology = () => {
     if (!newTechnology.trim()) return;
     setNewTechnologies([...newTechnologies, newTechnology.trim()]);
     setNewTechnology('');
   };
 
-  // Handle removing a technology from a new project
   const handleRemoveTechnology = (index: number) => {
     setNewTechnologies(newTechnologies.filter((_, i) => i !== index));
   };
 
-  // Handle adding a technology to an editing project
   const handleAddTechnologyToEditing = () => {
     if (!editingProject || !newTechnology.trim()) return;
     
@@ -76,7 +68,6 @@ const ProjectsForm: React.FC<ProjectsFormProps> = ({ projects, onChange }) => {
     setNewTechnology('');
   };
 
-  // Handle removing a technology from an editing project
   const handleRemoveTechnologyFromEditing = (index: number) => {
     if (!editingProject) return;
     
@@ -90,7 +81,6 @@ const ProjectsForm: React.FC<ProjectsFormProps> = ({ projects, onChange }) => {
     <div>
       <h3 className="text-lg font-medium mb-4">Projects</h3>
       
-      {/* List of existing projects */}
       <div className="space-y-4 mb-6">
         {projects.map((project) => (
           <div key={project.id} className="p-4 bg-gray-50 rounded-lg">
@@ -127,7 +117,6 @@ const ProjectsForm: React.FC<ProjectsFormProps> = ({ projects, onChange }) => {
         ))}
       </div>
       
-      {/* Edit project form */}
       {editingProject && (
         <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg mb-6">
           <h4 className="font-medium mb-3">Edit Project</h4>
@@ -210,7 +199,6 @@ const ProjectsForm: React.FC<ProjectsFormProps> = ({ projects, onChange }) => {
         </div>
       )}
       
-      {/* Add new project form */}
       {!editingProject && (
         <div className="p-4 bg-gray-50 rounded-lg">
           <h4 className="font-medium mb-3">Add New Project</h4>

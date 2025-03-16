@@ -50,7 +50,6 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection = 'resume' }) => {
             </div>
           </div>
           
-          {/* Mobile menu button */}
           <div className="md:hidden">
             <button
               onClick={toggleMenu}
@@ -70,8 +69,6 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection = 'resume' }) => {
           </div>
         </div>
       </div>
-
-      {/* Mobile menu, show/hide based on menu state */}
       {isMenuOpen && (
         <div className="md:hidden">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">

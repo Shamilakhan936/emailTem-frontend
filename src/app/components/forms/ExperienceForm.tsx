@@ -74,7 +74,6 @@ export default function ExperienceForm({ data, onChange }: ExperienceFormProps) 
     <div className="bg-white p-4 rounded-lg shadow">
       <h3 className="text-lg font-semibold mb-3">Experience</h3>
       
-      {/* Existing Experiences */}
       <div className="space-y-4 mb-6">
         {data.map((exp, index) => (
           <div key={exp.id} className="border p-3 rounded">
@@ -111,7 +110,6 @@ export default function ExperienceForm({ data, onChange }: ExperienceFormProps) 
         ))}
       </div>
 
-      {/* Add/Edit Form */}
       <div className="space-y-3 border-t pt-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
