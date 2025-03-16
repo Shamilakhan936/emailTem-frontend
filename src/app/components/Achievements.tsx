@@ -26,7 +26,7 @@ export default function Achievements({ data }: AchievementsProps) {
     <div className="space-y-4 text-white">
       {data.map((achievement) => (
         <div key={achievement.id} className="flex text-white items-start gap-3">
-          <span className="text-lg text-white">
+          <span className="text-lg text-white mt-[5px]">
             {iconMap[achievement.icon as IconType] || <GiDiamondTrophy className="mr-2 w-[30px] h-[30px] text-[#F5F5F5]" />}
           </span>
           <div>

@@ -1,5 +1,6 @@
 import { Achievement, Certification, Language, Project, Passion, SkillCategory } from '../../types/datatypes';
 import { useState } from 'react';
+import ProjectsForm from './ProjectsForm';
 
 interface AboutFormProps {
   achievements: Achievement[];
@@ -116,6 +117,18 @@ export default function AboutForm({
     });
   };
 
+  // Handle projects update
+  const handleProjectsChange = (updatedProjects: Project[]) => {
+    onChange({
+      achievements,
+      certifications,
+      languages,
+      projects: updatedProjects,
+      passion,
+      skills
+    });
+  };
+
   return (
     <div className="space-y-8">
       {/* Skills Section */}
@@ -211,6 +224,14 @@ export default function AboutForm({
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Projects Section */}
+      <div>
+        <ProjectsForm 
+          projects={projects} 
+          onChange={handleProjectsChange} 
+        />
       </div>
 
       {/* Achievements Section */}

@@ -1,4 +1,7 @@
+"use client";
+
 import { NextPage } from "next";
+import { useState, useEffect } from "react";
 import LeftColumn from "../components/LeftColumn"; 
 import RightColumn from "../components/RightColumn"; 
 
@@ -79,23 +82,93 @@ const defaultPassion = [{
   description: ''
 }];
 
-const Home: NextPage = () => {
+// A4 dimensions in pixels at 72 DPI
+// A4 is 210mm × 297mm which is approximately 595 × 842 points
+const A4_WIDTH = 595;
+const A4_HEIGHT = 842;
+
+interface ResumeProps {
+  header: typeof defaultHeader;
+  experience: typeof defaultExperience;
+  education: typeof defaultEducation;
+  languages: typeof defaultLanguages;
+  skills: typeof defaultSkills;
+  achievements: typeof defaultAchievements;
+  certifications: typeof defaultCertifications;
+  projects: typeof defaultProjects;
+  passion: typeof defaultPassion;
+  profileImage: string;
+  isMobile?: boolean;
+}
+
+const Home: NextPage<ResumeProps> = ({ 
+  header, 
+  experience, 
+  education, 
+  languages, 
+  skills, 
+  achievements, 
+  certifications, 
+  projects, 
+  passion,
+  profileImage,
+  isMobile = false
+}) => {
   return (
-    <div className="max-w-[840px] max-h-full mx-auto my-8 bg-white shadow-lg border-[1px] border-[#bdbdbd]">
-      <div className="grid grid-cols-1 md:grid-cols-3">
-        <RightColumn
-          header={defaultHeader}
-          experience={defaultExperience}
-          education={defaultEducation}
-          languages={defaultLanguages}
-        />
-        <LeftColumn 
-          skills={defaultSkills}
-          achievements={defaultAchievements}
-          certifications={defaultCertifications}
-          projects={defaultProjects}
-          passion={defaultPassion}
-        />
+    <div className="bg-white w-full">
+      <div className={`${isMobile ? 'flex flex-col' : 'flex'}`}>
+        {/* Left Column */}
+        <div 
+          className={`
+            ${isMobile ? 'w-full' : 'w-1/3'} 
+            bg-gray-800 text-white
+            ${isMobile ? 'p-4' : 'p-6'}
+          `}
+        >
+          <div className={`space-y-${isMobile ? '4' : '6'}`}>
+            {profileImage ? (
+              <div className={`
+                ${isMobile ? 'w-20 h-20' : 'w-32 h-32'} 
+                rounded-full mx-auto mb-4 overflow-hidden
+              `}>
+                <img 
+                  src={profileImage} 
+                  alt="Profile" 
+                  className="w-full h-full object-cover"
+                  crossOrigin="anonymous"
+                />
+              </div>
+            ) : (
+              <div className={`
+                ${isMobile ? 'w-20 h-20' : 'w-32 h-32'} 
+                rounded-full bg-gray-700 mx-auto mb-4
+              `} />
+            )}
+            <div className={`space-y-${isMobile ? '4' : '6'}`}>
+              <LeftColumn 
+                skills={skills}
+                achievements={achievements}
+                certifications={certifications}
+                projects={projects}
+                passion={passion}
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Right Column */}
+        <div className={`
+          ${isMobile ? 'w-full' : 'w-2/3'} 
+          bg-white
+          ${isMobile ? 'p-4' : 'p-6'}
+        `}>
+          <RightColumn
+            header={header}
+            experience={experience}
+            education={education}
+            languages={languages}
+          />
+        </div>
       </div>
     </div>
   );

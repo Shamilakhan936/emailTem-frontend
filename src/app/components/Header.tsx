@@ -10,36 +10,45 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ data }) => {
   return (
-    <div className="max-w-md mb-6">
-      <div className="space-y-1">
-        <h2 className="md:text-[28px] text-[24px] leading-[30px] font-semibold text-[#1e1d1d]">
+    <div className="pb-10">
+      <div className="">
+        <h1 className="text-[28px] mb-[-2px] font-rubik pb-[2px] font-medium text-[#1e1d1d]">
           {data.name}
-        </h2>
-        <p className="text-[#008CFF] text-[16px] mb-2">
+        </h1>
+        <p className="text-[#008CFF] text-[16px] font-normal">
           {data.role}
         </p>
         
-        <div className="flex flex-wrap gap-2 text-[12px] items-center">
-          <p className="flex items-center gap-2 min-w-fit">
-            <MdPhone className="text-grey-500 shrink-0" />
-            {data.phone}
-          </p>
-          <p className="flex items-center gap-2 min-w-fit">
-            <FaEnvelope className="text-grey-500 shrink-0" />
-            {data.email}
-          </p>
-          <p className="flex items-center gap-2 min-w-fit">
-            <FaGithub className="text-grey-500 shrink-0" />
-            <a href={data.github} target="_blank" className="hover:underline">
-              {data.github.replace("https://", "")}
-            </a>
-          </p>
-          <p className="flex items-center gap-2 min-w-fit">
-            <FaMapMarkerAlt className="text-grey-500 shrink-0" />
-            {data.location}
-          </p>
+        <div className="flex flex-col sm:flex-row flex-wrap gap-y-2 gap-x-4 text-[12px] text-gray-700 mt-3">
+          {data.phone && (
+            <p className="flex items-center gap-2">
+              <MdPhone className="text-gray-500 shrink-0" />
+              {data.phone}
+            </p>
+          )}
+          {data.email && (
+            <p className="flex items-center gap-2">
+              <FaEnvelope className="text-gray-500 shrink-0" />
+              {data.email}
+            </p>
+          )}
+          {data.github && (
+            <p className="flex items-center gap-2">
+              <FaGithub className="text-gray-500 shrink-0" />
+              <a href={data.github} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                {data.github.replace("https://", "")}
+              </a>
+            </p>
+          )}
+          {data.location && (
+            <p className="flex items-center gap-2">
+              <FaMapMarkerAlt className="text-gray-500 shrink-0" />
+              {data.location}
+            </p>
+          )}
         </div>
       </div>
+      
     </div>
   );
 };

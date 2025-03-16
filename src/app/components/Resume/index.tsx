@@ -1,3 +1,5 @@
+"use client";
+
 import { FC } from 'react';
 import { HeaderData, Experience as ExperienceType, Education as EducationType, Language, SkillCategory, Achievement, Certification, Project, Passion, ResumeData } from '../../types/datatypes';
 import Header from '../Header';
@@ -8,101 +10,103 @@ import Languages from '../Languages';
 import Skills from '../Skills';
 import Achievements from '../Achievements';
 import ProfileImage from '../ProfileImage';
+import Certifications from '../Certifications';
+import Projects from '../Projects';
+import Passions from '../Passions';
 
 interface ResumeProps extends Omit<ResumeData, 'header'> {
   header: HeaderData;
   profileImage: string;
 }
 
+// A4 dimensions in mm
+const A4_HEIGHT_MM = 297;
+const A4_WIDTH_MM = 210;
+
+// A4 dimensions in pixels at 96 DPI (standard screen resolution)
+// A4 is 210mm × 297mm which is approximately 794 × 1123 pixels at 96 DPI
+const A4_HEIGHT_PX = 1123;
+const A4_WIDTH_PX = 794;
+
 const Resume: FC<ResumeProps> = ({ 
-  header,
-  experience,
-  education,
-  languages,
-  skills,
-  achievements,
-  certifications,
-  projects,
+  header, 
+  experience, 
+  education, 
+  languages, 
+  skills, 
+  achievements, 
+  certifications, 
+  projects, 
   passion,
   profileImage
 }) => {
   return (
     <div className="bg-white">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {/* Left Column - White Background */}
-        <div className="col-span-2 bg-white pt-[60px] pl-[60px]  pb-[20px]">
-          <Header data={header} />
-          
-          <div className="mt-8">
-            <Summary title="Professional Summary" description={header.summary || ''} />
-          </div>
+      <div className="resume-container">
+        {/* Single Page Resume */}
+        <div className="bg-white w-[210mm] relative shadow-md">
+          <div className="flex h-full">
+            {/* Left Column - White Background (2/3 of A4 width) */}
+            <div className="left-column w-[140mm] bg-white pt-[40px] pl-[40px] pr-[25px] pb-[20px]">
+              <div className="header-section">
+                <Header data={header} />
+              </div>
+              
+              <div className="summary-section text-[16px]">
+                <Summary title="SUMMARY" description={header.summary || ''} />
+              </div>
 
-          <div className="mt-8">
-            <ExperienceSection data={experience.slice(0, 1)} />
-          </div>
+              <div className="left-section mt-4" data-section="experience">
+                <ExperienceSection data={experience} />
+              </div>
 
-          <div className="mt-8">
-            <EducationSection data={education.slice(0, 1)} />
-          </div>
+              <div className="left-section mt-4" data-section="education">
+                <EducationSection data={education} />
+              </div>
 
-          <div className="mt-8">
-            <Languages data={languages.slice(0, 1)} />
-          </div>
-        </div>
-
-        {/* Right Column - Blue Background */}
-        <div className="bg-[#22405c]  border-t-[20px] border-[#182d40] text-white pt-[30px] px-6 pb-[20px] ml-8">
-          <div className="flex justify-center mb-8">
-            <div className="w-[70px] h-[70px]">
-              <ProfileImage src={profileImage} />
+              <div className="left-section mt-4" data-section="languages">
+                <Languages data={languages} />
+              </div>
+              
+              
             </div>
-          </div>
-          
-          <div className="mt-8">
-            <h2 className="text-white uppercase font-medium border-b border-gray-300 pb-2 mb-4">
-              Key Achievements
-            </h2>
-            <Achievements data={achievements.slice(0, 1)} />
-          </div>
 
-          <div className="mt-8">
-            <Skills data={skills.slice(0, 1)} />
-          </div>
-
-          <div className="mt-8">
-            <h2 className="text-white uppercase font-medium border-b border-gray-300 pb-2 mb-4">
-              Certifications
-            </h2>
-            {certifications.slice(0, 1).map(cert => (
-              <div key={cert.id} className="mb-4">
-                <h3 className="font-medium text-white">{cert.title}</h3>
-                <p className="text-white text-sm mt-1">{cert.description}</p>
+            {/* Right Column - Blue Background (1/3 of A4 width) */}
+            <div className="right-column w-[70mm] bg-[#22405c] border-t-[20px] border-[#182d40] text-white pt-[30px] px-6 pb-[20px]">
+              <div className="flex justify-center mb-8">
+                <div className="w-[115px] h-[115px]">
+                  <ProfileImage src={profileImage} />
+                </div>
               </div>
-            ))}
-          </div>
-
-          <div className="mt-8">
-            <h2 className="text-white uppercase font-medium border-b border-gray-300 pb-2 mb-4">
-              Projects
-            </h2>
-            {projects.slice(0, 1).map(project => (
-              <div key={project.id} className="mb-4">
-                <h3 className="font-medium text-white">{project.title}</h3>
-                <p className="text-white text-sm mt-1">{project.description}</p>
+              
+              <div className="section" data-section="achievements">
+                <h2 className="text-white uppercase font-medium border-b border-gray-300 pb-2 mb-4">
+                  KEY ACHIEVEMENTS
+                </h2>
+                <Achievements data={achievements} />
               </div>
-            ))}
-          </div>
 
-          <div className="mt-8">
-            <h2 className="text-white uppercase font-medium border-b border-gray-300 pb-2 mb-4">
-              Passion
-            </h2>
-            {passion.slice(0, 1).map(item => (
-              <div key={item.id} className="mb-4">
-                <h3 className="font-medium text-white">{item.title}</h3>
-                <p className="text-white text-sm mt-1">{item.description}</p>
+              <div className="section mt-8" data-section="skills">
+                <h2 className="text-white uppercase font-medium border-b border-gray-300 pb-2 mb-4">
+                  SKILLS
+                </h2>
+                <Skills data={skills} />
               </div>
-            ))}
+              
+              <div className="section mt-8" data-section="projects">
+                <h2 className="text-white uppercase font-medium border-b border-gray-300 pb-2 mb-4">
+                  PROJECTS
+                </h2>
+                <Projects data={projects} />
+              </div>
+              
+              <div className="section mt-8" data-section="passions">
+                <h2 className="text-white uppercase font-medium border-b border-gray-300 pb-2 mb-4">
+                  PASSIONS
+                </h2>
+                <Passions data={passion} />
+              </div>
+            </div>
           </div>
         </div>
       </div>

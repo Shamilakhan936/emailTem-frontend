@@ -13,11 +13,29 @@ interface RightColumnProps {
 
 export default function RightColumn({ header, experience, education, languages }: RightColumnProps) {
   return (
-    <div className="col-span-2 font-inter px-6 py-5 md:pl-16 md:pr-6 md:pt-[50px]">
-      <Header data={header} />
-      <ExperienceSection data={experience} />
-      <EducationSection data={education} />
-      <Languages data={languages} />
+    <div className="space-y-8">
+      {/* Header Section */}
+      <div className="border-b border-gray-200 pb-6">
+        <Header data={header} />
+      </div>
+
+      {/* Experience Section */}
+      <div className="space-y-4">
+        <h2 className="text-2xl font-bold text-gray-900">Experience</h2>
+        <ExperienceSection data={experience} />
+      </div>
+
+      {/* Education Section */}
+      <div className="space-y-4">
+        <h2 className="text-2xl font-bold text-gray-900">Education</h2>
+        <EducationSection data={education} />
+      </div>
+
+      {/* Languages Section */}
+      <div className="space-y-4">
+        <h2 className="text-2xl font-bold text-gray-900">Languages</h2>
+        <Languages data={languages} />
+      </div>
     </div>
   );
 }

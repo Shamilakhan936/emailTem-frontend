@@ -1,5 +1,6 @@
 "use client";
 
+import React from 'react';
 import { SkillCategory } from '../types/datatypes';
 
 interface SkillsProps {
@@ -10,20 +11,20 @@ export default function Skills({ data }: SkillsProps) {
   if (!data || data.length === 0) return null;
 
   return (
-    <div className="space-y-4 text-white  ">
+    <div className="space-y-4">
       {data.map((category) => (
         <div key={category.id} className="mb-4">
           {category.name && (
-            <h4 className="text-white font-medium mb-2">{category.name}</h4>
+            <h4 className="text-white font-medium mb-2 uppercase text-sm tracking-wider">
+              {category.name}
+            </h4>
           )}
-          <div className="flex flex-wrap gap-2">
+          <div className="text-sm text-white">
             {category.skills.map((skill, index) => (
-              <span
-                key={index}
-                className="bg-gray-300 text-gray-700 px-3 py-1 rounded-full text-sm"
-              >
-                {skill}
-              </span>
+              <React.Fragment key={index}>
+                {index > 0 && <span className="mx-1">-</span>}
+                <span>{skill}</span>
+              </React.Fragment>
             ))}
           </div>
         </div>

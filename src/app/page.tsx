@@ -1,11 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Resume from './components/Resume/index';
 import HeaderForm from './components/forms/HeaderForm';
 import ExperienceForm from './components/forms/ExperienceForm';
 import EducationForm from './components/forms/EducationForm';
 import AboutForm from './components/forms/AboutForm';
+import DownloadButton from './components/DownloadButton';
 import type { HeaderData, Experience, Education, SkillCategory, Achievement, Certification, Language, Project, Passion } from './types/datatypes';
 import headerData, { 
   experience as initialExperience,
@@ -24,12 +25,18 @@ const tabs: { id: TabType; label: string }[] = [
   { id: 'header', label: 'HEADER' },
   { id: 'experience', label: 'EXPERIENCE' },
   { id: 'education', label: 'EDUCATION' },
-  { id: 'skills', label: 'ABOUT' }
+  { id: 'skills', label: 'OTHERS' }
 ];
+
+// A4 dimensions in mm
+const A4_WIDTH_MM = 210;
+const A4_HEIGHT_MM = 297;
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState<TabType>('header');
   const [profileImage, setProfileImage] = useState<string>("/images/default-avatar.png");
+  const [showPreviewModal, setShowPreviewModal] = useState(false);
+  const resumeRef = useRef<HTMLDivElement>(null);
   const [resumeData, setResumeData] = useState({
     header: headerData,
     experience: initialExperience,
@@ -47,6 +54,23 @@ export default function Home() {
     projects: initialProjects,
     passion: initialPassion
   });
+
+  // Load data from localStorage if available
+  useEffect(() => {
+    // Load projects
+    const savedProjects = localStorage.getItem('resumeProjects');
+    if (savedProjects) {
+      try {
+        const parsedProjects = JSON.parse(savedProjects);
+        setResumeData(prev => ({
+          ...prev,
+          projects: parsedProjects
+        }));
+      } catch (e) {
+        console.error('Error parsing saved projects:', e);
+      }
+    }
+  }, []);
 
   const handleHeaderChange = (data: HeaderData) => {
     setResumeData(prev => ({ ...prev, header: data }));
@@ -116,11 +140,12 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
-      <div className="max-w-[1440px] mx-auto flex gap-8">
-        <div className="w-[380px] flex-shrink-0">
+    <div className="min-h-screen bg-red-50 p-6">
+      <div className="max-w-[1440px] mx-auto flex flex-col md:flex-row gap-8">
+        {/* Sidebar - Always visible */}
+        <div className="w-full md:w-[40%] flex-shrink-0">
           <div className="bg-white rounded-lg shadow-sm">
-            <div className="sticky top-6 overflow-y-auto ">
+            <div className="sticky top-6 overflow-y-auto">
               <div className="border-b border-gray-200">
                 <nav className="flex" aria-label="Tabs">
                   {tabs.map((tab) => (
@@ -143,22 +168,106 @@ export default function Home() {
               <div className="p-6">
                 {renderForm()}
               </div>
+              {/* Preview & Download Buttons for Mobile */}
+              <div className="p-6 border-t border-gray-200 md:hidden">
+                <div className="space-y-4">
+                  <button
+                    onClick={() => setShowPreviewModal(true)}
+                    className="w-full px-4 py-2 bg-[#1a4977] text-white rounded-md hover:bg-[#153a5f] transition-colors flex items-center justify-center gap-2"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                    </svg>
+                    <span>Preview Resume</span>
+                  </button>
+                  <DownloadButton contentRef={resumeRef} />
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <div className="flex-1 bg-white rounded-lg shadow-sm">
-          <Resume
-            header={resumeData.header}
-            experience={resumeData.experience}
-            education={resumeData.education}
-            languages={resumeData.languages}
-            skills={resumeData.skills}
-            achievements={resumeData.achievements}
-            certifications={resumeData.certifications}
-            projects={resumeData.projects}
-            passion={resumeData.passion}
-            profileImage={profileImage}
-          />
+
+        {/* Mobile Preview Modal */}
+        {showPreviewModal && (
+          <div className="fixed inset-0 z-50 md:hidden bg-gray-100">
+            <div className="min-h-screen flex flex-col">
+              {/* Modal Header */}
+              <div className="bg-white px-4 py-3 flex justify-between items-center border-b sticky top-0 z-10">
+                <div className="flex items-center gap-3">
+                  <DownloadButton contentRef={resumeRef} />
+                  <button 
+                    onClick={() => setShowPreviewModal(false)}
+                    className="p-2 hover:bg-gray-100 rounded-full text-gray-500"
+                  >
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              {/* Mobile Preview Content */}
+              <div className="flex-1 overflow-auto bg-gray-100">
+                <div className="p-4">
+                  <div 
+                    ref={resumeRef}
+                    id="resume-content"
+                    className="bg-white shadow-lg mx-auto origin-top"
+                    style={{
+                      width: '210mm',
+                      transform: `scale(${window.innerWidth / (210 * 3.78125)})`,
+                      marginTop: '20px'
+                    }}
+                  >
+                    <Resume
+                      header={resumeData.header}
+                      experience={resumeData.experience}
+                      education={resumeData.education}
+                      languages={resumeData.languages}
+                      skills={resumeData.skills}
+                      achievements={resumeData.achievements}
+                      certifications={resumeData.certifications}
+                      projects={resumeData.projects}
+                      passion={resumeData.passion}
+                      profileImage={profileImage}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Desktop Preview - Hidden on Mobile */}
+        <div className="hidden md:block flex-1">
+          <div className="flex justify-end gap-4 mb-4">
+            <DownloadButton contentRef={resumeRef} />
+          </div>
+          {/* PDF Preview Container */}
+          <div 
+            ref={resumeRef}
+            id="resume-content"
+            className="bg-white shadow-lg print:shadow-none" 
+            style={{
+              width: '210mm',
+              margin: '0 auto',
+              position: 'relative'
+            }}
+          >
+            <Resume
+              header={resumeData.header}
+              experience={resumeData.experience}
+              education={resumeData.education}
+              languages={resumeData.languages}
+              skills={resumeData.skills}
+              achievements={resumeData.achievements}
+              certifications={resumeData.certifications}
+              projects={resumeData.projects}
+              passion={resumeData.passion}
+              profileImage={profileImage}
+            />
+          </div>
         </div>
       </div>
     </div>

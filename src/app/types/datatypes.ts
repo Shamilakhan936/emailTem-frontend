@@ -1,10 +1,12 @@
 export interface HeaderData {
   name: string;
-  role: string;
-  phone: string;
-  email: string;
-  github: string;
+  title: string;
   location: string;
+  email: string;
+  phone: string;
+  image: string;
+  role: string;
+  github: string;
   summary: string;
 }
 
@@ -13,6 +15,7 @@ export interface Achievement {
   icon: string;
   title: string;
   description: string;
+  achievement: string;
 }
 
 export interface Certification {
@@ -20,26 +23,32 @@ export interface Certification {
   title: string;
   organization: string;
   description: string;
+  date: string;
+  issuer: string;
 }
 
 export interface Education {
   id: number;
-  degree: string;
   institution: string;
+  degree: string;
+  field: string;
   date: string;
   city: string;
 }
 
 export interface Experience {
   id: number;
-  role: string;
   company: string;
+  position: string;
+  role: string;
   city: string;
   date: string;
+  description: string;
   responsibilities: string[];
 }
 
 export interface Language {
+  id: number;
   name: string;
   level: string;
   proficiency: number;
@@ -48,12 +57,15 @@ export interface Language {
 export interface Project {
   id: number;
   title: string;
+  name: string;
   description: string;
+  technologies: string[];
 }
 
 export interface Passion {
   id: number;
   title: string;
+  name: string;
   description: string;
 }
 
@@ -73,5 +85,6 @@ export interface ResumeData {
   certifications: Certification[];
   projects: Project[];
   passion: Passion[];
+  profileImage: string;
 }
   

@@ -12,9 +12,9 @@ const Experience: React.FC<ExperienceProps> = ({ data }) => {
       <h2 className="text-[16px] font-normal max-sm:font-bold text-[#2c2a2a] border-b-[1px] border-[#bdbdbd] pb-[5px]">
         EXPERIENCE
       </h2>
-      <div className="mt-4">
+      <div className="">
         {data.map((exp) => (
-          <div key={exp.id} className="mt-4">
+          <div key={exp.id} className="mt-2">
             <div className="flex justify-between items-center">
               <h3 className="text-[15px] text-[#2c2a2a] font-normal">
                 {exp.role}
@@ -23,7 +23,7 @@ const Experience: React.FC<ExperienceProps> = ({ data }) => {
                 {exp.date}
               </p>
             </div>
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center mt-[6px]">
               <p className="text-[#008CFF] text-[14px]">
                 {exp.company}
               </p>
