@@ -14,6 +14,7 @@ export default function EducationForm({ data, onChange }: EducationFormProps) {
     institution: '',
     date: '',
     city: '',
+    field: ''
   });
 
   const handleAdd = () => {
@@ -25,6 +26,7 @@ export default function EducationForm({ data, onChange }: EducationFormProps) {
       institution: '',
       date: '',
       city: '',
+      field: ''
     });
   };
 
@@ -39,6 +41,7 @@ export default function EducationForm({ data, onChange }: EducationFormProps) {
       institution: '',
       date: '',
       city: '',
+      field: ''
     });
   };
 
@@ -60,6 +63,7 @@ export default function EducationForm({ data, onChange }: EducationFormProps) {
                 <h4 className="font-medium">{edu.degree}</h4>
                 <p className="text-sm text-gray-600">{edu.institution}</p>
                 <p className="text-sm text-gray-500">{edu.date} - {edu.city}</p>
+                <p className="text-sm text-gray-500">Field: {edu.field}</p>
               </div>
               <div className="space-x-2">
                 <button
@@ -137,6 +141,19 @@ export default function EducationForm({ data, onChange }: EducationFormProps) {
           />
         </div>
 
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Field of Study
+          </label>
+          <input
+            type="text"
+            value={newEducation.field}
+            onChange={(e) => setNewEducation({ ...newEducation, field: e.target.value })}
+            className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            placeholder="e.g., Computer Science"
+          />
+        </div>
+
         <div className="flex justify-end space-x-2 mt-4">
           {editIndex !== null ? (
             <>
@@ -149,6 +166,7 @@ export default function EducationForm({ data, onChange }: EducationFormProps) {
                     institution: '',
                     date: '',
                     city: '',
+                    field: ''
                   });
                 }}
                 className="px-4 py-2 text-gray-600 hover:text-gray-800"

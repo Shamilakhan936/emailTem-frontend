@@ -12,8 +12,10 @@ export default function ExperienceForm({ data, onChange }: ExperienceFormProps) 
     id: 0,
     role: '',
     company: '',
+    position: '',
     city: '',
     date: '',
+    description: '',
     responsibilities: [''],
   });
 
@@ -24,8 +26,10 @@ export default function ExperienceForm({ data, onChange }: ExperienceFormProps) 
       id: 0,
       role: '',
       company: '',
+      position: '',
       city: '',
       date: '',
+      description: '',
       responsibilities: [''],
     });
   };
@@ -39,8 +43,10 @@ export default function ExperienceForm({ data, onChange }: ExperienceFormProps) 
       id: 0,
       role: '',
       company: '',
+      position: '',
       city: '',
       date: '',
+      description: '',
       responsibilities: [''],
     });
   };
@@ -82,6 +88,10 @@ export default function ExperienceForm({ data, onChange }: ExperienceFormProps) 
                 <h4 className="font-medium">{exp.role}</h4>
                 <p className="text-sm text-gray-600">{exp.company} - {exp.city}</p>
                 <p className="text-sm text-gray-500">{exp.date}</p>
+                <p className="text-sm text-gray-500">Position: {exp.position}</p>
+                {exp.description && (
+                  <p className="text-sm text-gray-600 mt-1">Description: {exp.description}</p>
+                )}
               </div>
               <div className="space-x-2">
                 <button
@@ -139,6 +149,19 @@ export default function ExperienceForm({ data, onChange }: ExperienceFormProps) 
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
+            Position
+          </label>
+          <input
+            type="text"
+            value={newExperience.position}
+            onChange={(e) => setNewExperience({ ...newExperience, position: e.target.value })}
+            className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            placeholder="e.g., Full Stack Developer"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
             City
           </label>
           <input
@@ -160,6 +183,19 @@ export default function ExperienceForm({ data, onChange }: ExperienceFormProps) 
             onChange={(e) => setNewExperience({ ...newExperience, date: e.target.value })}
             className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             placeholder="e.g., 2020 - Present"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Description
+          </label>
+          <textarea
+            value={newExperience.description}
+            onChange={(e) => setNewExperience({ ...newExperience, description: e.target.value })}
+            className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            placeholder="Brief description of your role"
+            rows={3}
           />
         </div>
 
@@ -202,8 +238,10 @@ export default function ExperienceForm({ data, onChange }: ExperienceFormProps) 
                     id: 0,
                     role: '',
                     company: '',
+                    position: '',
                     city: '',
                     date: '',
+                    description: '',
                     responsibilities: [''],
                   });
                 }}

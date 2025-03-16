@@ -9,7 +9,9 @@ export default function InterestsPage() {
   const [interests, setInterests] = useState<Passion[]>([]);
   const [newInterest, setNewInterest] = useState<Omit<Passion, 'id'>>({
     title: '',
-    description: ''
+    name: '',
+    description: '',
+    icon: 'trophy' // Default icon
   });
   const [editingInterest, setEditingInterest] = useState<Passion | null>(null);
   
@@ -42,13 +44,17 @@ export default function InterestsPage() {
     const newId = Math.max(0, ...interests.map(i => i.id)) + 1;
     const interestToAdd = {
       ...newInterest,
-      id: newId
+      id: newId,
+      // Make sure name is set, fallback to title if it's not
+      name: newInterest.name.trim() || newInterest.title.trim()
     };
     
     setInterests([...interests, interestToAdd]);
     setNewInterest({
       title: '',
-      description: ''
+      name: '',
+      description: '',
+      icon: 'trophy' // Default icon
     });
   };
   
@@ -128,6 +134,27 @@ export default function InterestsPage() {
                 </div>
                 
                 <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                  <input
+                    type="text"
+                    value={editingInterest.name}
+                    onChange={(e) => setEditingInterest({...editingInterest, name: e.target.value})}
+                    className="w-full p-2 border rounded"
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Icon</label>
+                  <input
+                    type="text"
+                    value={editingInterest.icon}
+                    onChange={(e) => setEditingInterest({...editingInterest, icon: e.target.value})}
+                    className="w-full p-2 border rounded"
+                    placeholder="e.g., trophy, award, star"
+                  />
+                </div>
+                
+                <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Description (Optional)</label>
                   <textarea
                     value={editingInterest.description}
@@ -180,6 +207,28 @@ export default function InterestsPage() {
                     placeholder="Brief description of your interest"
                     className="w-full p-2 border rounded"
                     rows={3}
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Name (Optional)</label>
+                  <input
+                    type="text"
+                    value={newInterest.name}
+                    onChange={(e) => setNewInterest({...newInterest, name: e.target.value})}
+                    placeholder="Same as title if left empty"
+                    className="w-full p-2 border rounded"
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Icon</label>
+                  <input
+                    type="text"
+                    value={newInterest.icon}
+                    onChange={(e) => setNewInterest({...newInterest, icon: e.target.value})}
+                    placeholder="e.g., trophy, award, star"
+                    className="w-full p-2 border rounded"
                   />
                 </div>
                 

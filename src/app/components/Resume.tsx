@@ -79,7 +79,8 @@ const defaultPassion = [{
   id: 1,
   title: '',
   name: '',
-  description: ''
+  description: '',
+  icon: 'trophy'
 }];
 
 const A4_WIDTH = 595;

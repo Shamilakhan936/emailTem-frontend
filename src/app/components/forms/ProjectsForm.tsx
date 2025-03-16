@@ -10,6 +10,7 @@ interface ProjectsFormProps {
 
 const ProjectsForm: React.FC<ProjectsFormProps> = ({ projects, onChange }) => {
   const [newProjectTitle, setNewProjectTitle] = useState('');
+  const [newProjectName, setNewProjectName] = useState('');
   const [newProjectDescription, setNewProjectDescription] = useState('');
   const [newTechnology, setNewTechnology] = useState('');
   const [newTechnologies, setNewTechnologies] = useState<string[]>([]);
@@ -22,6 +23,7 @@ const ProjectsForm: React.FC<ProjectsFormProps> = ({ projects, onChange }) => {
     const newProject: Project = {
       id: newId,
       title: newProjectTitle.trim(),
+      name: newProjectName.trim() || newProjectTitle.trim(),
       description: newProjectDescription.trim(),
       technologies: [...newTechnologies]
     };
@@ -29,6 +31,7 @@ const ProjectsForm: React.FC<ProjectsFormProps> = ({ projects, onChange }) => {
     onChange([...projects, newProject]);
     
     setNewProjectTitle('');
+    setNewProjectName('');
     setNewProjectDescription('');
     setNewTechnologies([]);
   };
@@ -133,6 +136,17 @@ const ProjectsForm: React.FC<ProjectsFormProps> = ({ projects, onChange }) => {
             </div>
             
             <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+              <input
+                type="text"
+                value={editingProject.name}
+                onChange={(e) => setEditingProject({...editingProject, name: e.target.value})}
+                className="w-full p-2 border rounded"
+                placeholder="Typically same as title"
+              />
+            </div>
+            
+            <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
               <textarea
                 value={editingProject.description}
@@ -211,6 +225,16 @@ const ProjectsForm: React.FC<ProjectsFormProps> = ({ projects, onChange }) => {
                 value={newProjectTitle}
                 onChange={(e) => setNewProjectTitle(e.target.value)}
                 placeholder="Project title"
+                className="w-full p-2 border rounded"
+              />
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Name (Optional)</label>
+              <input
+                type="text"
+                onChange={(e) => setNewProjectName(e.target.value)}
+                placeholder="Same as title if left empty"
                 className="w-full p-2 border rounded"
               />
             </div>

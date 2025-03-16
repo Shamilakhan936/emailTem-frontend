@@ -400,7 +400,13 @@ export default function AboutForm({
                     certifications,
                     languages,
                     projects,
-                    passion: [...passion, { id: newId, title: e.currentTarget.value.trim(), description: '' }],
+                    passion: [...passion, { 
+                      id: newId, 
+                      title: e.currentTarget.value.trim(), 
+                      name: e.currentTarget.value.trim(),
+                      description: '',
+                      icon: 'trophy'
+                    }],
                     skills
                   });
                   e.currentTarget.value = '';

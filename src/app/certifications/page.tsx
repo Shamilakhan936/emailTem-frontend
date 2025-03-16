@@ -9,6 +9,7 @@ export default function CertificationsPage() {
   const [certifications, setCertifications] = useState<Certification[]>([]);
   const [newCertification, setNewCertification] = useState<Omit<Certification, 'id'>>({
     title: '',
+    organization: '',
     issuer: '',
     date: '',
     description: ''
@@ -50,6 +51,7 @@ export default function CertificationsPage() {
     setCertifications([...certifications, certificationToAdd]);
     setNewCertification({
       title: '',
+      organization: '',
       issuer: '',
       date: '',
       description: ''
@@ -112,6 +114,10 @@ export default function CertificationsPage() {
                   <span className="font-medium">Issuer:</span> {cert.issuer}
                 </div>
                 
+                <div className="text-sm text-gray-600 mb-1">
+                  <span className="font-medium">Organization:</span> {cert.organization}
+                </div>
+                
                 <div className="text-sm text-gray-600 mb-2">
                   <span className="font-medium">Date:</span> {cert.date}
                 </div>
@@ -135,6 +141,16 @@ export default function CertificationsPage() {
                     type="text"
                     value={editingCertification.title}
                     onChange={(e) => setEditingCertification({...editingCertification, title: e.target.value})}
+                    className="w-full p-2 border rounded"
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Organization</label>
+                  <input
+                    type="text"
+                    value={editingCertification.organization}
+                    onChange={(e) => setEditingCertification({...editingCertification, organization: e.target.value})}
                     className="w-full p-2 border rounded"
                   />
                 </div>
@@ -201,6 +217,17 @@ export default function CertificationsPage() {
                     value={newCertification.title}
                     onChange={(e) => setNewCertification({...newCertification, title: e.target.value})}
                     placeholder="Certification title"
+                    className="w-full p-2 border rounded"
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Organization</label>
+                  <input
+                    type="text"
+                    value={newCertification.organization}
+                    onChange={(e) => setNewCertification({...newCertification, organization: e.target.value})}
+                    placeholder="Organization"
                     className="w-full p-2 border rounded"
                   />
                 </div>
