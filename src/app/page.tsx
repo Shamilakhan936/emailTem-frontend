@@ -2,10 +2,12 @@
 
 import { useState, useRef, useEffect } from 'react';
 import Resume from './components/Resume/index';
+import ResumeWrapper, { generatePdf } from './components/ResumeWrapper';
 import HeaderForm from './components/forms/HeaderForm';
 import ExperienceForm from './components/forms/ExperienceForm';
 import EducationForm from './components/forms/EducationForm';
 import AboutForm from './components/forms/AboutForm';
+import TemplateSelector from './components/TemplateSelector';
 import DownloadButton from './components/DownloadButton';
 import type { HeaderData, Experience, Education, SkillCategory, Achievement, Certification, Language, Project, Passion } from './types/datatypes';
 import headerData, { 
@@ -18,10 +20,12 @@ import headerData, {
   projects as initialProjects,
   passion as initialPassion
 } from './lib/data';
+import { TemplateId } from './components/templates';
 
-type TabType = 'header' | 'experience' | 'education' | 'skills';
+type TabType = 'template' | 'header' | 'experience' | 'education' | 'skills';
 
 const tabs: { id: TabType; label: string }[] = [
+  { id: 'template', label: 'TEMPLATE' },
   { id: 'header', label: 'HEADER' },
   { id: 'experience', label: 'EXPERIENCE' },
   { id: 'education', label: 'EDUCATION' },
@@ -33,7 +37,8 @@ const A4_WIDTH_MM = 210;
 const A4_HEIGHT_MM = 297;
 
 export default function Home() {
-  const [activeTab, setActiveTab] = useState<TabType>('header');
+  const [activeTab, setActiveTab] = useState<TabType>('template');
+  const [selectedTemplateId, setSelectedTemplateId] = useState<TemplateId>('default');
   const [profileImage, setProfileImage] = useState<string>("/images/default-avatar.jpg");
   const [showPreviewModal, setShowPreviewModal] = useState(false);
   const [showTabletPreviewModal, setShowTabletPreviewModal] = useState(false);
@@ -108,8 +113,29 @@ export default function Home() {
     }));
   };
 
+  const handleTemplateChange = (templateId: TemplateId) => {
+    setSelectedTemplateId(templateId);
+    // Save selected template to localStorage
+    localStorage.setItem('selectedTemplateId', templateId);
+  };
+
+  // Load selected template from localStorage
+  useEffect(() => {
+    const savedTemplate = localStorage.getItem('selectedTemplateId') as TemplateId | null;
+    if (savedTemplate) {
+      setSelectedTemplateId(savedTemplate);
+    }
+  }, []);
+
   const renderForm = () => {
     switch (activeTab) {
+      case 'template':
+        return (
+          <TemplateSelector 
+            selectedTemplateId={selectedTemplateId} 
+            onSelectTemplate={handleTemplateChange} 
+          />
+        );
       case 'header':
         return (
           <HeaderForm 
@@ -224,7 +250,7 @@ export default function Home() {
                       overflow: 'hidden'
                     }}
                   >
-                    <Resume
+                    <ResumeWrapper
                       header={resumeData.header}
                       experience={resumeData.experience}
                       education={resumeData.education}
@@ -235,6 +261,7 @@ export default function Home() {
                       projects={resumeData.projects}
                       passion={resumeData.passion}
                       profileImage={profileImage}
+                      templateId={selectedTemplateId}
                     />
                   </div>
                 </div>
@@ -277,7 +304,7 @@ export default function Home() {
                       overflow: 'hidden'
                     }}
                   >
-                    <Resume
+                    <ResumeWrapper
                       header={resumeData.header}
                       experience={resumeData.experience}
                       education={resumeData.education}
@@ -288,6 +315,7 @@ export default function Home() {
                       projects={resumeData.projects}
                       passion={resumeData.passion}
                       profileImage={profileImage}
+                      templateId={selectedTemplateId}
                     />
                   </div>
                 </div>
@@ -323,7 +351,7 @@ export default function Home() {
               overflow: 'hidden'
             }}
           >
-            <Resume
+            <ResumeWrapper
               header={resumeData.header}
               experience={resumeData.experience}
               education={resumeData.education}
@@ -334,6 +362,7 @@ export default function Home() {
               projects={resumeData.projects}
               passion={resumeData.passion}
               profileImage={profileImage}
+              templateId={selectedTemplateId}
             />
           </div>
         </div>
