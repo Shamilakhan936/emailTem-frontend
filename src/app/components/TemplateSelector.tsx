@@ -1,61 +1,38 @@
 "use client";
 
-import { FC } from 'react';
-import { TEMPLATES, TemplateId } from './templates';
+import React from 'react';
+import { TEMPLATES, TemplateId } from '../components/templates';
 
 interface TemplateSelectorProps {
   selectedTemplateId: TemplateId;
-  onSelectTemplate: (id: TemplateId) => void;
+  onSelectTemplate: (templateId: TemplateId) => void;
 }
 
-const TemplateSelector: FC<TemplateSelectorProps> = ({ 
-  selectedTemplateId, 
-  onSelectTemplate 
+const TemplateSelector: React.FC<TemplateSelectorProps> = ({
+  selectedTemplateId,
+  onSelectTemplate,
 }) => {
   return (
-    <div className="template-selector">
-      <h2 className="text-lg font-medium mb-4">Choose a Template</h2>
-      
-      <div className="grid grid-cols-1 gap-4">
-        {TEMPLATES.map((template) => {
-          // Get the thumbnail component
-          const ThumbnailComponent = template.thumbnailComponent;
-          
-          return (
-            <div 
-              key={template.id}
-              className={`
-                template-option p-3 border rounded-md cursor-pointer transition-all
-                ${selectedTemplateId === template.id 
-                  ? 'border-blue-500 bg-blue-50' 
-                  : 'border-gray-200 hover:border-gray-300'}
-              `}
-              onClick={() => onSelectTemplate(template.id as TemplateId)}
-            >
-              <div className="flex items-center">
-                <div className="w-20 h-28 relative mr-4 border border-gray-200 overflow-hidden">
-                  {ThumbnailComponent ? (
-                    <ThumbnailComponent />
-                  ) : (
-                    <div className="w-full h-full bg-gray-100 flex items-center justify-center text-gray-400">
-                      Preview
-                    </div>
-                  )}
-                </div>
-                
-                <div>
-                  <h3 className="font-medium">{template.name}</h3>
-                  <p className="text-sm text-gray-500">
-                    {selectedTemplateId === template.id && (
-                      <span className="text-blue-500">Selected</span>
-                    )}
-                  </p>
-                </div>
-              </div>
+    <div className="grid grid-cols-2 gap-4">
+      {TEMPLATES.map((template) => {
+        const ThumbnailComponent = template.thumbnailComponent;
+        return (
+          <button
+            key={template.id}
+            onClick={() => onSelectTemplate(template.id as TemplateId)}
+            className={`relative rounded-lg overflow-hidden transition-all duration-200 ${
+              selectedTemplateId === template.id
+                ? 'ring-2 ring-blue-500 scale-[1.02]'
+                : 'hover:scale-[1.02]'
+            }`}
+          >
+            <ThumbnailComponent />
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-4">
+              <p className="text-white text-sm font-medium">{template.name}</p>
             </div>
-          );
-        })}
-      </div>
+          </button>
+        );
+      })}
     </div>
   );
 };

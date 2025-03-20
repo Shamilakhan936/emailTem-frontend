@@ -29,25 +29,87 @@ body {
 
 @page {
   size: A4;
-  margin: 0; 
+  margin: 0;
 }
 
-#resume-content {
+@media print {
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 210mm;
+    height: 297mm;
+  }
+  
+  .resume-pages {
+    width: 210mm;
+    background: white;
+  }
+  
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0;
+    padding: 0;
+    page-break-after: always;
+    break-after: page;
+    position: relative;
+    overflow: visible;
+  }
+  
+  .page:last-child {
+    page-break-after: auto;
+    break-after: auto;
+  }
+  
+  .page-break {
+    page-break-before: always;
+    break-before: page;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.resume-container {
   width: 210mm;
-  height: 297mm;
+  min-height: 297mm;
   background: white;
-  overflow: hidden;
-  box-sizing: border-box;
-  page-break-inside: avoid;
+  position: relative;
+  overflow: visible;
+}
+
+.template-wrapper {
+  width: 210mm;
+  min-height: 297mm;
+  background: white;
+  position: relative;
+  overflow: visible;
+}
+
+.resume-pages {
+  width: 210mm;
+  background: white;
+  margin: 0 auto;
 }
 
 .page {
-  page-break-before: always;
-  break-before: page;
   width: 210mm;
   min-height: 297mm;
+  background: white;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
+  page-break-after: always;
+  break-after: page;
+}
+
+.page:last-child {
+  page-break-after: auto;
+  break-after: auto;
+}
+
+.page-break {
+  page-break-before: always;
+  break-before: page;
+  margin-top: 20mm;
 }
 
 .container {
@@ -66,11 +128,6 @@ body {
   break-after: auto;
 }
 
-.page-break {
-  page-break-before: always;
-  break-before: page;
-}
-
 .page-container {
   width: 800px;
   min-height: 1123px;
@@ -78,14 +135,6 @@ body {
   background: white;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 20px;
-}
-
-.resume-container {
-  width: 210mm;
-  height: 297mm;
-  background: white;
-  overflow: hidden;
-  box-sizing: border-box;
 }
 
 .left-column {
@@ -184,84 +233,6 @@ body {
   font-weight: 500 !important;
 }
 
-@media print {
-  body {
-    background: white;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .page {
-    box-shadow: none;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .mt-\[10mm\] {
-    margin-top: 0 !important;
-  }
-  
-  .right-column {
-    background-color: #22405c !important;
-    border-top: 20px solid #182d40 !important;
-    color: white !important;
-    width: 70mm !important;
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-  }
-  
-  .right-column h1, 
-  .right-column h2, 
-  .right-column h3, 
-  .right-column h4, 
-  .right-column h5, 
-  .right-column h6, 
-  .right-column p, 
-  .right-column span, 
-  .right-column div {
-    color: white !important;
-  }
-  
-  .left-column {
-    background-color: white !important;
-    width: 140mm !important;
-  }
-  
-  .left-column h1, 
-  .left-column h2, 
-  .left-column h3, 
-  .left-column h4, 
-  .left-column h5, 
-  .left-column h6, 
-  .left-column p, 
-  .left-column span, 
-  .left-column div {
-    color: black !important;
-  }
-  
-  img {
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-  }
-  
-  .right-column img,
-  [class*="rounded-full"] img {
-    border-radius: 50% !important;
-    width: 115px !important;
-    height: 115px !important;
-    object-fit: cover !important;
-  }
-  
-  .right-column h2 {
-    color: white !important;
-    text-transform: uppercase !important;
-    font-weight: 500 !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3) !important;
-    padding-bottom: 0.5rem !important;
-    margin-bottom: 1rem !important;
-  }
-}
-
 .pdf-container {
   width: 210mm;
   height: 297mm;
@@ -313,12 +284,4 @@ body {
   background-color: white !important;
   width: 140mm !important;
   color: black !important;
-}
-
-.resume-container {
-  width: 210mm;
-  height: 297mm;
-  background: white;
-  overflow: hidden;
-  box-sizing: border-box;
 }

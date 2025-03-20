@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Inter  } from "next/font/google";
+import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
-import Navbar from "./components/layout/Navbar"; 
+import ClientLayout from "./components/layout/ClientLayout";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
@@ -14,11 +14,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} antialiased`}>
-        <Navbar /> 
-        <main>{children}</main>
-      </body>
+    <html lang="en" className={inter.variable}>
+      <ClientLayout className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} antialiased`}>
+        {children}
+      </ClientLayout>
     </html>
   );
 }

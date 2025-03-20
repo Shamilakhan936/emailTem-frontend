@@ -2,7 +2,8 @@
 
 import { useState, useRef, useEffect } from 'react';
 import Resume from './components/Resume/index';
-import ResumeWrapper, { generatePdf } from './components/ResumeWrapper';
+import ResumeWrapper from './components/ResumeWrapper';
+import { generatePdf } from './utils/pdfGeneration';
 import HeaderForm from './components/forms/HeaderForm';
 import ExperienceForm from './components/forms/ExperienceForm';
 import EducationForm from './components/forms/EducationForm';
@@ -20,7 +21,7 @@ import headerData, {
   projects as initialProjects,
   passion as initialPassion
 } from './lib/data';
-import { TemplateId } from './components/templates';
+import { TemplateId, TEMPLATES } from './components/templates';
 
 type TabType = 'template' | 'header' | 'experience' | 'education' | 'skills';
 
@@ -43,43 +44,139 @@ export default function Home() {
   const [showPreviewModal, setShowPreviewModal] = useState(false);
   const [showTabletPreviewModal, setShowTabletPreviewModal] = useState(false);
   const resumeRef = useRef<HTMLDivElement>(null);
-  const [resumeData, setResumeData] = useState({
-    header: headerData,
-    experience: initialExperience,
-    education: initialEducation,
-    languages: initialLanguages,
-    skills: initialSkills.map(category => ({
-      ...category,
-      name: category.id === 1 ? 'Backend & DevOps' :
-            category.id === 2 ? 'Frontend & JavaScript' :
-            category.id === 3 ? 'Databases' :
-            category.id === 5 ? 'Mobile Development' : 'Other'
-    })),
-    achievements: initialAchievements,
-    certifications: initialCertifications,
-    projects: initialProjects,
-    passion: initialPassion
+  
+  // Store data for each template separately
+  const [templateData, setTemplateData] = useState<Record<TemplateId, {
+    header: HeaderData;
+    experience: Experience[];
+    education: Education[];
+    languages: Language[];
+    skills: SkillCategory[];
+    achievements: Achievement[];
+    certifications: Certification[];
+    projects: Project[];
+    passion: Passion[];
+  }>>({
+    default: {
+      header: headerData,
+      experience: initialExperience,
+      education: initialEducation,
+      languages: initialLanguages,
+      skills: initialSkills.map(category => ({
+        ...category,
+        name: category.id === 1 ? 'Backend & DevOps' :
+              category.id === 2 ? 'Frontend & JavaScript' :
+              category.id === 3 ? 'Databases' :
+              category.id === 5 ? 'Mobile Development' : 'Other'
+      })),
+      achievements: initialAchievements,
+      certifications: initialCertifications,
+      projects: initialProjects,
+      passion: initialPassion
+    },
+    modern: {
+      header: headerData,
+      experience: initialExperience,
+      education: initialEducation,
+      languages: initialLanguages,
+      skills: initialSkills.map(category => ({
+        ...category,
+        name: category.id === 1 ? 'Backend & DevOps' :
+              category.id === 2 ? 'Frontend & JavaScript' :
+              category.id === 3 ? 'Databases' :
+              category.id === 5 ? 'Mobile Development' : 'Other'
+      })),
+      achievements: initialAchievements,
+      certifications: initialCertifications,
+      projects: initialProjects,
+      passion: initialPassion
+    },
+    template3: {
+      header: headerData,
+      experience: initialExperience,
+      education: initialEducation,
+      languages: initialLanguages,
+      skills: initialSkills.map(category => ({
+        ...category,
+        name: category.id === 1 ? 'Backend & DevOps' :
+              category.id === 2 ? 'Frontend & JavaScript' :
+              category.id === 3 ? 'Databases' :
+              category.id === 5 ? 'Mobile Development' : 'Other'
+      })),
+      achievements: initialAchievements,
+      certifications: initialCertifications,
+      projects: initialProjects,
+      passion: initialPassion
+    },
+    minimal: {
+      header: headerData,
+      experience: initialExperience,
+      education: initialEducation,
+      languages: initialLanguages,
+      skills: initialSkills.map(category => ({
+        ...category,
+        name: category.id === 1 ? 'Backend & DevOps' :
+              category.id === 2 ? 'Frontend & JavaScript' :
+              category.id === 3 ? 'Databases' :
+              category.id === 5 ? 'Mobile Development' : 'Other'
+      })),
+      achievements: initialAchievements,
+      certifications: initialCertifications,
+      projects: initialProjects,
+      passion: initialPassion
+    },
+    professional: {
+      header: headerData,
+      experience: initialExperience,
+      education: initialEducation,
+      languages: initialLanguages,
+      skills: initialSkills.map(category => ({
+        ...category,
+        name: category.id === 1 ? 'Backend & DevOps' :
+              category.id === 2 ? 'Frontend & JavaScript' :
+              category.id === 3 ? 'Databases' :
+              category.id === 5 ? 'Mobile Development' : 'Other'
+      })),
+      achievements: initialAchievements,
+      certifications: initialCertifications,
+      projects: initialProjects,
+      passion: initialPassion
+    }
   });
+
+  // Get current template data
+  const currentTemplateData = templateData[selectedTemplateId];
 
   // Load data from localStorage if available
   useEffect(() => {
-    // Load projects
-    const savedProjects = localStorage.getItem('resumeProjects');
-    if (savedProjects) {
-      try {
-        const parsedProjects = JSON.parse(savedProjects);
-        setResumeData(prev => ({
-          ...prev,
-          projects: parsedProjects
-        }));
-      } catch (e) {
-        console.error('Error parsing saved projects:', e);
+    // Load projects for each template
+    Object.keys(templateData).forEach((templateId) => {
+      const savedProjects = localStorage.getItem(`resumeProjects_${templateId}`);
+      if (savedProjects) {
+        try {
+          const parsedProjects = JSON.parse(savedProjects);
+          setTemplateData(prev => ({
+            ...prev,
+            [templateId]: {
+              ...prev[templateId as TemplateId],
+              projects: parsedProjects
+            }
+          }));
+        } catch (e) {
+          console.error('Error parsing saved projects:', e);
+        }
       }
-    }
+    });
   }, []);
 
   const handleHeaderChange = (data: HeaderData) => {
-    setResumeData(prev => ({ ...prev, header: data }));
+    setTemplateData(prev => ({
+      ...prev,
+      [selectedTemplateId]: {
+        ...prev[selectedTemplateId],
+        header: data
+      }
+    }));
   };
 
   const handleProfileImageChange = (image: string) => {
@@ -87,11 +184,23 @@ export default function Home() {
   };
 
   const handleExperienceChange = (data: Experience[]) => {
-    setResumeData(prev => ({ ...prev, experience: data }));
+    setTemplateData(prev => ({
+      ...prev,
+      [selectedTemplateId]: {
+        ...prev[selectedTemplateId],
+        experience: data
+      }
+    }));
   };
 
   const handleEducationChange = (data: Education[]) => {
-    setResumeData(prev => ({ ...prev, education: data }));
+    setTemplateData(prev => ({
+      ...prev,
+      [selectedTemplateId]: {
+        ...prev[selectedTemplateId],
+        education: data
+      }
+    }));
   };
 
   const handleAboutChange = (data: {
@@ -102,14 +211,17 @@ export default function Home() {
     passion: Passion[],
     skills: SkillCategory[]
   }) => {
-    setResumeData(prev => ({
+    setTemplateData(prev => ({
       ...prev,
-      achievements: data.achievements,
-      certifications: data.certifications,
-      languages: data.languages,
-      projects: data.projects,
-      passion: data.passion,
-      skills: data.skills
+      [selectedTemplateId]: {
+        ...prev[selectedTemplateId],
+        achievements: data.achievements,
+        certifications: data.certifications,
+        languages: data.languages,
+        projects: data.projects,
+        passion: data.passion,
+        skills: data.skills
+      }
     }));
   };
 
@@ -122,8 +234,11 @@ export default function Home() {
   // Load selected template from localStorage
   useEffect(() => {
     const savedTemplate = localStorage.getItem('selectedTemplateId') as TemplateId | null;
-    if (savedTemplate) {
+    if (savedTemplate && TEMPLATES.find(t => t.id === savedTemplate)) {
       setSelectedTemplateId(savedTemplate);
+    } else {
+      setSelectedTemplateId('default'); // Set default template if saved one is not valid
+      localStorage.setItem('selectedTemplateId', 'default');
     }
   }, []);
 
@@ -139,25 +254,25 @@ export default function Home() {
       case 'header':
         return (
           <HeaderForm 
-            data={resumeData.header} 
+            data={currentTemplateData.header} 
             onChange={handleHeaderChange} 
             profileImage={profileImage}
             onProfileImageChange={handleProfileImageChange}
           />
         );
       case 'experience':
-        return <ExperienceForm data={resumeData.experience} onChange={handleExperienceChange} />;
+        return <ExperienceForm data={currentTemplateData.experience} onChange={handleExperienceChange} />;
       case 'education':
-        return <EducationForm data={resumeData.education} onChange={handleEducationChange} />;
+        return <EducationForm data={currentTemplateData.education} onChange={handleEducationChange} />;
       case 'skills':
         return (
           <AboutForm
-            achievements={resumeData.achievements}
-            certifications={resumeData.certifications}
-            languages={resumeData.languages}
-            projects={resumeData.projects}
-            passion={resumeData.passion}
-            skills={resumeData.skills}
+            achievements={currentTemplateData.achievements}
+            certifications={currentTemplateData.certifications}
+            languages={currentTemplateData.languages}
+            projects={currentTemplateData.projects}
+            passion={currentTemplateData.passion}
+            skills={currentTemplateData.skills}
             onChange={handleAboutChange}
           />
         );
@@ -240,10 +355,10 @@ export default function Home() {
                   <div 
                     ref={resumeRef}
                     id="mobile-resume-content"
-                    className="bg-white  mx-auto origin-top pdf-container"
+                    className="bg-white mx-auto origin-top pdf-container"
                     style={{
                       width: '210mm',
-                      height: '297mm',
+                      minHeight: '297mm',
                       transform: `scale(${Math.min(0.9, window.innerWidth / (210 * 3.78125))})`,
                       transformOrigin: 'top center',
                       marginBottom: '20px',
@@ -251,15 +366,15 @@ export default function Home() {
                     }}
                   >
                     <ResumeWrapper
-                      header={resumeData.header}
-                      experience={resumeData.experience}
-                      education={resumeData.education}
-                      languages={resumeData.languages}
-                      skills={resumeData.skills}
-                      achievements={resumeData.achievements}
-                      certifications={resumeData.certifications}
-                      projects={resumeData.projects}
-                      passion={resumeData.passion}
+                      header={currentTemplateData.header}
+                      experience={currentTemplateData.experience}
+                      education={currentTemplateData.education}
+                      languages={currentTemplateData.languages}
+                      skills={currentTemplateData.skills}
+                      achievements={currentTemplateData.achievements}
+                      certifications={currentTemplateData.certifications}
+                      projects={currentTemplateData.projects}
+                      passion={currentTemplateData.passion}
                       profileImage={profileImage}
                       templateId={selectedTemplateId}
                     />
@@ -297,7 +412,7 @@ export default function Home() {
                     className="bg-white mx-auto origin-top pdf-container"
                     style={{
                       width: '210mm',
-                      height: '297mm',
+                      minHeight: '297mm',
                       transform: `scale(${Math.min(0.9, window.innerWidth / (210 * 3.78125))})`,
                       transformOrigin: 'top center',
                       marginBottom: '20px',
@@ -305,15 +420,15 @@ export default function Home() {
                     }}
                   >
                     <ResumeWrapper
-                      header={resumeData.header}
-                      experience={resumeData.experience}
-                      education={resumeData.education}
-                      languages={resumeData.languages}
-                      skills={resumeData.skills}
-                      achievements={resumeData.achievements}
-                      certifications={resumeData.certifications}
-                      projects={resumeData.projects}
-                      passion={resumeData.passion}
+                      header={currentTemplateData.header}
+                      experience={currentTemplateData.experience}
+                      education={currentTemplateData.education}
+                      languages={currentTemplateData.languages}
+                      skills={currentTemplateData.skills}
+                      achievements={currentTemplateData.achievements}
+                      certifications={currentTemplateData.certifications}
+                      projects={currentTemplateData.projects}
+                      passion={currentTemplateData.passion}
                       profileImage={profileImage}
                       templateId={selectedTemplateId}
                     />
@@ -345,22 +460,22 @@ export default function Home() {
             className="bg-white print:shadow-none pdf-container" 
             style={{
               width: '210mm',
-              height: '297mm',
+              minHeight: '297mm',
               margin: '0 auto',
               position: 'relative',
               overflow: 'hidden'
             }}
           >
             <ResumeWrapper
-              header={resumeData.header}
-              experience={resumeData.experience}
-              education={resumeData.education}
-              languages={resumeData.languages}
-              skills={resumeData.skills}
-              achievements={resumeData.achievements}
-              certifications={resumeData.certifications}
-              projects={resumeData.projects}
-              passion={resumeData.passion}
+              header={currentTemplateData.header}
+              experience={currentTemplateData.experience}
+              education={currentTemplateData.education}
+              languages={currentTemplateData.languages}
+              skills={currentTemplateData.skills}
+              achievements={currentTemplateData.achievements}
+              certifications={currentTemplateData.certifications}
+              projects={currentTemplateData.projects}
+              passion={currentTemplateData.passion}
               profileImage={profileImage}
               templateId={selectedTemplateId}
             />
