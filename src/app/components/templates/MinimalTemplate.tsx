@@ -142,22 +142,24 @@ const MinimalTemplate: FC<TemplateProps> = ({
         )}
           {/* Skills Section */}
           {certifications && certifications.length > 0 && (
-          <div className="mb-[8px]">
-            <h2 className="text-[18px] font-bold text-black text-center uppercase mb-2 border-b border-[#333] pb-1">
-            certifications
-            </h2>
-            <div className="">
-              {certifications.map((category, index) => (
-                <div key={index} className="text-[16px] flex gap-[10px] ">
-                  <h3 className="font-semibold  mb-1">{category.name}</h3>
-                  <div className="text-[#444]">
-                    {category.certifications}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
+  <div className="mb-[8px]">
+    <h2 className="text-[18px] font-bold text-black text-center uppercase mb-2 border-b border-[#333] pb-1">
+      Certifications
+    </h2>
+    <div className="space-y-4">
+      {certifications.map((cert, index) => (
+        <div key={index} className="text-[16px]">
+          <h3 className="font-semibold mb-1">{cert.title}</h3>
+          <p className="text-[#444]">{cert.organization}</p>
+          <p className="text-[#666] text-sm">{cert.issuer} | {cert.date}</p>
+          <p className="text-[#444]">{cert.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+)}
+
+
       </div>
     </div>
   );
