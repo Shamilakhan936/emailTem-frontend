@@ -6,6 +6,7 @@ import Experience from '../../parentComponents/ExperiencesMain';
 import Education from '../../parentComponents/EducationMain';
 import SummaryNew from '../../parentComponents/SummaryMain';
 import AchievementsNew from '../../parentComponents/AchievementsNew';
+import CertificationMain from '../../parentComponents/CertificationMain';
 
 interface TemplateProps extends Omit<ResumeData, 'header'> {
   header: HeaderData;
@@ -19,6 +20,7 @@ const MinimalTemplate: FC<TemplateProps> = ({
   languages, 
   skills, 
   achievements,
+  certifications,
   projects,
   passion,
   profileImage 
@@ -27,34 +29,34 @@ const MinimalTemplate: FC<TemplateProps> = ({
     <div className="bg-white w-full min-h-full p-8 font-[system-ui]">
       <div className="max-w-[800px] mx-auto">
         {/* Header Section */}
-        <div className="mb-8">
-          <h1 className="text-[28px] font-bold text-[#333] mb-1">{header.name}</h1>
-          <h2 className="text-[16px] text-[#666] mb-2">
+        <div className="mb-[8px] text-center">
+          <h1 className="text-[22px] font-bold uppercase text-black mb-1">{header.name}</h1>
+          <h2 className="text-[18px] text-[#6f7878] mb-2">
             {header.title} {header.role && <span className="mx-2">|</span>} {header.role}
           </h2>
-          <div className="text-[14px] text-[#666] flex gap-4">
-            {header.location && <span>{header.location}</span>}
-            {header.phone && <span>{header.phone}</span>}
-            {header.email && <span>{header.email}</span>}
+          <div className="text-[14px] text-black flex items-center justify-center gap-4">
+            {/* {header.phone && <span>{header.phone}</span>} */}
+            {header.email && <span>{header.email} </span>}
             {header.github && <span>{header.github}</span>}
+            {header.location && <span>{header.location}</span>}
           </div>
         </div>
 
         {/* Summary Section */}
         {header.summary && (
-          <div className="mb-8">
-            <h2 className="text-[16px] font-bold text-[#333] uppercase mb-2 border-b border-[#333] pb-1">
+          <div className="mb-[8px]">
+            <h2 className="text-[18px] font-bold text-black text-center uppercase mb-2 border-b border-[#333] pb-1">
               Summary
             </h2>
-            <p className="text-[14px] text-[#444] leading-relaxed">
+            <p className="text-[14px] text-black leading-relaxed">
               {header.summary}
             </p>
           </div>
         )}
 
         {/* Experience Section */}
-        <div className="mb-8">
-          <h2 className="text-[16px] font-bold text-[#333] uppercase mb-2 border-b border-[#333] pb-1">
+        <div className="mb-[8px]">
+          <h2 className="text-[18px] font-bold text-black text-center uppercase mb-2 border-b border-[#333] pb-1">
             Experience
           </h2>
           <div className="space-y-6">
@@ -62,15 +64,15 @@ const MinimalTemplate: FC<TemplateProps> = ({
               <div key={index} className="text-[14px]">
                 <div className="flex justify-between items-start mb-1">
                   <div>
-                    <h3 className="font-semibold text-[#333]">{exp.position}</h3>
-                    <div className="text-[#666]">{exp.company}</div>
+                    <div className="text-[#6f7878] text-[18px]">{exp.company}</div>
+                    <h3 className="font-semibold  text-[16px]">{exp.position}</h3>
                   </div>
-                  <div className="text-[#666] text-right">
+                  <div className="text-[#384347] text-[16px] text-right">
                     <div>{exp.city}</div>
                     <div>{exp.date}</div>
                   </div>
                 </div>
-                <ul className="list-disc ml-4 text-[#444] space-y-1">
+                <ul className="list-disc ml-4 text-[#444] text-[14px] space-y-1">
                   {exp.responsibilities?.map((resp, idx) => (
                     <li key={idx}>{resp}</li>
                   ))}
@@ -81,8 +83,8 @@ const MinimalTemplate: FC<TemplateProps> = ({
         </div>
 
         {/* Education Section */}
-        <div className="mb-8">
-          <h2 className="text-[16px] font-bold text-[#333] uppercase mb-2 border-b border-[#333] pb-1">
+        <div className="mb-[8px]">
+          <h2 className="text-[18px] font-bold text-black text-center uppercase mb-2 border-b border-[#333] pb-1">
             Education
           </h2>
           <div className="space-y-4">
@@ -90,10 +92,10 @@ const MinimalTemplate: FC<TemplateProps> = ({
               <div key={index} className="text-[14px]">
                 <div className="flex justify-between items-start">
                   <div>
-                    <h3 className="font-semibold text-[#333]">{edu.degree}</h3>
-                    <div className="text-[#666]">{edu.institution}</div>
+                    <div className="text-[#6f7878] text-[18px]">{edu.institution}</div>
+                    <h3 className="font-semibold text-[16px]">{edu.degree}</h3>
                   </div>
-                  <div className="text-[#666] text-right">
+                  <div className="text-[#384347] text-[16px] text-right">
                     <div>{edu.city}</div>
                     <div>{edu.date}</div>
                   </div>
@@ -105,14 +107,14 @@ const MinimalTemplate: FC<TemplateProps> = ({
 
         {/* Key Achievements Section */}
         {achievements && achievements.length > 0 && (
-          <div className="mb-8">
-            <h2 className="text-[16px] font-bold text-[#333] uppercase mb-2 border-b border-[#333] pb-1">
+          <div className="mb-[8px]">
+            <h2 className="text-[18px] font-bold text-black text-center uppercase mb-2 border-b border-[#333] pb-1">
               Key Achievements
             </h2>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-3 gap-4">
               {achievements.map((achievement, index) => (
                 <div key={index} className="text-[14px]">
-                  <h3 className="font-semibold text-[#333] mb-1">{achievement.title}</h3>
+                  <h3 className="font-semibold  text-[16px] mb-1">{achievement.title}</h3>
                   <p className="text-[#444]">{achievement.description}</p>
                 </div>
               ))}
@@ -122,16 +124,34 @@ const MinimalTemplate: FC<TemplateProps> = ({
 
         {/* Skills Section */}
         {skills && skills.length > 0 && (
-          <div className="mb-8">
-            <h2 className="text-[16px] font-bold text-[#333] uppercase mb-2 border-b border-[#333] pb-1">
+          <div className="mb-[8px]">
+            <h2 className="text-[18px] font-bold text-black text-center uppercase mb-2 border-b border-[#333] pb-1">
               Skills
             </h2>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="">
               {skills.map((category, index) => (
-                <div key={index} className="text-[14px]">
-                  <h3 className="font-semibold text-[#333] mb-1">{category.name}</h3>
+                <div key={index} className="text-[16px] flex gap-[10px] ">
+                  <h3 className="font-semibold  mb-1">{category.name}</h3>
                   <div className="text-[#444]">
-                    {category.skills.join(', ')}
+                    {category.skills.join('- ')}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+          {/* Skills Section */}
+          {certifications && certifications.length > 0 && (
+          <div className="mb-[8px]">
+            <h2 className="text-[18px] font-bold text-black text-center uppercase mb-2 border-b border-[#333] pb-1">
+            certifications
+            </h2>
+            <div className="">
+              {certifications.map((category, index) => (
+                <div key={index} className="text-[16px] flex gap-[10px] ">
+                  <h3 className="font-semibold  mb-1">{category.name}</h3>
+                  <div className="text-[#444]">
+                    {category.certifications}
                   </div>
                 </div>
               ))}

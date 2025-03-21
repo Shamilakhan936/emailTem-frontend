@@ -2,6 +2,9 @@
 
 import { FC } from 'react';
 import { ResumeData, HeaderData } from '../../types/datatypes';
+import { IoDiamondOutline } from "react-icons/io5";
+
+
 
 interface TemplateProps extends Omit<ResumeData, 'header'> {
   header: HeaderData;
@@ -24,31 +27,26 @@ const ProfessionalTemplate: FC<TemplateProps> = ({
     <div className="bg-white w-full min-h-full">
       <div className="flex">
         {/* Left Sidebar - Teal colored */}
-        <div className="w-[250px] bg-[#0D6B5E] text-white p-8">
-          <div className="mb-12">
+        <div className="w-[250px] bg-[#0D6B5E] text-white p-[20px]">
+          <div className="mb-[20px]">
             <h1 className="text-[28px] font-bold mb-1">{header.name}</h1>
-            <h2 className="text-[16px] font-normal opacity-90">{header.title}</h2>
-            <div className="mt-4 text-[13px] space-y-1 opacity-90">
-              <div>{header.email}</div>
-              <div>{header.phone}</div>
-              <div>{header.location}</div>
-              {header.github && <div>{header.github}</div>}
-            </div>
+            
           </div>
 
           {/* Key Achievements Section */}
-          <div className="mb-8">
-            <h2 className="text-[14px] font-bold uppercase mb-3 border-b border-white/30 pb-1">
+          <div className="mb-[8px]">
+            <h2 className="text-[20px] font-bold uppercase mb-3 border-b border-white pb-1">
               Key Achievements
             </h2>
             <div className="space-y-4">
               {achievements?.map((achievement, index) => (
-                <div key={index} className="text-[13px]">
-                  <div className="flex items-start gap-2">
-                    <span className="mt-1">✓</span>
+                <div key={index} className="">
+                  <div className="flex items-center gap-2">
+                    {/* <span className="mt-1">✓</span> */}
+                    <IoDiamondOutline className=" w t22t-white"/>
                     <div>
-                      <h3 className="font-semibold mb-1">{achievement.title}</h3>
-                      <p className="opacity-90 leading-snug">{achievement.description}</p>
+                      <h3 className="font-semibold text-[16px] text-white mb-1">{achievement.title}</h3>
+                      <p className=" leading-snug">{achievement.description}</p>
                     </div>
                   </div>
                 </div>
@@ -119,7 +117,20 @@ const ProfessionalTemplate: FC<TemplateProps> = ({
         </div>
 
         {/* Main Content Area */}
-        <div className="flex-1 p-8">
+        <div className="flex-1 p-[20px]">
+        <div className=" text-[13px] mb-[20px]">
+          <div>
+
+            <h2 className="text-[18px] text-[#1ab0b3] font-normal ">{header.title}</h2>
+          </div>
+          <div className="flex text-[13px] gap-[10px]">
+
+              <div>{header.email}</div>
+              {/* <div>{header.phone}</div> */}
+              <div>{header.location}</div>
+              {header.github && <div>{header.github}</div>}
+          </div>
+            </div>
           {/* Summary Section */}
           <div className="mb-8">
             <h2 className="text-[14px] font-bold text-[#333] uppercase mb-3 border-b border-gray-300 pb-1">
