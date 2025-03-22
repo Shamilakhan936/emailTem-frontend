@@ -358,7 +358,7 @@ export default function Home() {
                     className="bg-white mx-auto origin-top pdf-container"
                     style={{
                       width: '210mm',
-                      minHeight: '297mm',
+                      minHeight: '293mm',
                       transform: `scale(${Math.min(0.9, window.innerWidth / (210 * 3.78125))})`,
                       transformOrigin: 'top center',
                       marginBottom: '20px',
@@ -412,7 +412,7 @@ export default function Home() {
                     className="bg-white mx-auto origin-top pdf-container"
                     style={{
                       width: '210mm',
-                      minHeight: '297mm',
+                      minHeight: '293mm',
                       transform: `scale(${Math.min(0.9, window.innerWidth / (210 * 3.78125))})`,
                       transformOrigin: 'top center',
                       marginBottom: '20px',
@@ -460,7 +460,7 @@ export default function Home() {
             className="bg-white print:shadow-none pdf-container" 
             style={{
               width: '210mm',
-              minHeight: '297mm',
+              minHeight: '293mm',
               margin: '0 auto',
               position: 'relative',
               overflow: 'hidden'

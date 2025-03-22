@@ -30,8 +30,8 @@ export default function Achievements({ data }: AchievementsProps) {
             {iconMap[achievement.icon as IconType] || <GiDiamondTrophy className="mr-2 w-[30px] h-[30px] text-[#F5F5F5]" />}
           </span>
           <div>
-            <h4 className="font-medium text-white">{achievement.title}</h4>
-            <p className="text-white text-sm mt-1">{achievement.description}</p>
+            <h4 className="text-[16px] font-semibold text-white">{achievement.title}</h4>
+            <p className="text-white text-[13px] mt-1">{achievement.description}</p>
           </div>
         </div>
       ))}

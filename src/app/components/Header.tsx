@@ -12,14 +12,14 @@ const Header: React.FC<HeaderProps> = ({ data }) => {
   return (
     <div className="pb-10">
       <div className="">
-        <h1 className="text-[28px] mb-[-2px] font-rubik pb-[2px] font-medium text-[#1e1d1d]">
+        <h1 className="text-[28px] mb-[-2px] font-rubik pb-[2px] font-semibold text-[#1e1d1d]">
           {data.name}
         </h1>
-        <p className="text-[#008CFF] text-[16px] font-normal">
+        <p className="text-[#008cff] text-[16px] font-normal">
           {data.role}
         </p>
         
-        <div className="flex flex-col sm:flex-row flex-wrap gap-y-2 gap-x-4 text-[12px] text-gray-700 mt-3">
+        <div className="flex flex-col sm:flex-row flex-wrap gap-y-2 gap-x-4 text-[14px]  mt-3">
           {data.phone && (
             <p className="flex items-center gap-2">
               <MdPhone className="text-gray-500 shrink-0" />

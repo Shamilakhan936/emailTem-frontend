@@ -32,15 +32,15 @@ const DefaultTemplate: FC<TemplateProps> = ({
 }) => {
   return (
     <div className="bg-white w-full h-full">
-      <div className="resume-container w-[210mm] h-[297mm]">
+      <div className="resume-container w-[210mm] h-[295mm]">
         <div className="bg-white w-[210mm] h-[297mm] relative">
           <div className="flex h-full">
-            <div className="left-column w-[140mm] bg-white pt-[40px] pl-[40px] pr-[25px] pb-[20px]">
+            <div className="left-column w-[140mm] bg-white pt-[25px] pl-[25px] pr-[25px] pb-[20px]">
               <div className="header-section">
                 <Header data={header} />
               </div>
               
-              <div className="summary-section text-[16px]">
+              <div className="summary-section text-[28px]">
                 <Summary title="SUMMARY" description={header.summary || ''} />
               </div>
 
@@ -65,28 +65,28 @@ const DefaultTemplate: FC<TemplateProps> = ({
               </div>
               
               <div className="section" data-section="achievements">
-                <h2 className="text-white uppercase font-medium border-b border-opacity-30 border-white pb-2 mb-4">
+                <h2 className="text-white text-[18px] uppercase font-medium border-b border-opacity-30 border-white pb-2 mb-4">
                   KEY ACHIEVEMENTS
                 </h2>
                 <Achievements data={achievements} />
               </div>
 
               <div className="section mt-8" data-section="skills">
-                <h2 className="text-white uppercase font-medium border-b border-opacity-30 border-white pb-2 mb-4">
+                <h2 className="text-white text-[18px] uppercase font-medium border-b border-opacity-30 border-white pb-2 mb-4">
                   SKILLS
                 </h2>
                 <Skills data={skills} />
               </div>
               
               <div className="section mt-8" data-section="projects">
-                <h2 className="text-white uppercase font-medium border-b border-opacity-30 border-white pb-2 mb-4">
+                <h2 className="text-white text-[18px] uppercase font-medium border-b border-opacity-30 border-white pb-2 mb-4">
                   PROJECTS
                 </h2>
                 <Projects data={projects} />
               </div>
               
               <div className="section mt-8" data-section="passions">
-                <h2 className="text-white uppercase font-medium border-b border-opacity-30 border-white pb-2 mb-4">
+                <h2 className="text-white text-[18px] uppercase font-medium border-b border-opacity-30 border-white pb-2 mb-4">
                   PASSIONS
                 </h2>
                 <Passions data={passion} />

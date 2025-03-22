@@ -2,6 +2,8 @@
 
 import { FC } from 'react';
 import { ResumeData, HeaderData } from '../../types/datatypes';
+import { FaEnvelope, FaGithub, FaMapMarkerAlt } from "react-icons/fa";
+
 import { IoDiamondOutline } from "react-icons/io5";
 
 
@@ -24,11 +26,11 @@ const ProfessionalTemplate: FC<TemplateProps> = ({
   profileImage 
 }) => {
   return (
-    <div className="bg-white w-full min-h-full">
+    <div className="bg-white w-full ">
       <div className="flex">
         {/* Left Sidebar - Teal colored */}
-        <div className="w-[250px] bg-[#0D6B5E] text-white p-[20px]">
-          <div className="mb-[20px]">
+        <div className="w-[250px] bg-[#106166] text-white p-[20px] border-t-[20px] border-[#10484d]">
+          <div className="mt-[20px]">
             <h1 className="text-[28px] font-bold mb-1">{header.name}</h1>
             
           </div>
@@ -41,12 +43,15 @@ const ProfessionalTemplate: FC<TemplateProps> = ({
             <div className="space-y-4">
               {achievements?.map((achievement, index) => (
                 <div key={index} className="">
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center flex-cols gap-2">
                     {/* <span className="mt-1">✓</span> */}
-                    <IoDiamondOutline className=" w t22t-white"/>
-                    <div>
-                      <h3 className="font-semibold text-[16px] text-white mb-1">{achievement.title}</h3>
-                      <p className=" leading-snug">{achievement.description}</p>
+                    <div className="flex gap-2">
+                    <IoDiamondOutline className=" w-[25%] mt-[4px] t-white"/>
+                      <div className="">
+
+                      <h3 className="font-semibold text-[16px] text-white  mb-1">{achievement.title}</h3>
+                      <p className=" leading-snug text-[14px]">{achievement.description}</p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -55,23 +60,23 @@ const ProfessionalTemplate: FC<TemplateProps> = ({
           </div>
 
           {/* Certification Section */}
-          <div className="mb-8">
-            <h2 className="text-[14px] font-bold uppercase mb-3 border-b border-white/30 pb-1">
+          <div className="mb-[8px] mt-[15px]">
+            <h2 className="text-[20px] font-bold uppercase mb-3 text-[##1ab0b3] border-b border-white pb-1">
               Certification
             </h2>
             <div className="space-y-3">
               {projects?.map((cert, index) => (
                 <div key={index} className="text-[13px]">
-                  <h3 className="font-semibold mb-1">{cert.title}</h3>
-                  <p className="opacity-90 leading-snug">{cert.description}</p>
+                  <h3 className="font-semibold text-[16px] mb-1">{cert.title}</h3>
+                  <p className="text-[14px] leading-snug">{cert.description}</p>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Passions Section */}
-          <div className="mb-8">
-            <h2 className="text-[14px] font-bold uppercase mb-3 border-b border-white/30 pb-1">
+          <div className="mb-[8px] mt-[15px]">
+            <h2 className="text-[20px] font-bold uppercase mb-3 text-[##1ab0b3] border-b border-white pb-1">
               Passions
             </h2>
             <div className="space-y-3">
@@ -80,70 +85,77 @@ const ProfessionalTemplate: FC<TemplateProps> = ({
                   <div className="flex items-start gap-2">
                     <span className="mt-1">⚡</span>
                     <div>
-                      <h3 className="font-semibold mb-1">{item.title}</h3>
-                      <p className="opacity-90 leading-snug">{item.description}</p>
+                      <h3 className="font-semibold text-[16px] mb-1">{item.title}</h3>
+                      <p className="text-[14px] leading-snug">{item.description}</p>
                     </div>
                   </div>
                 </div>
               ))}
             </div>
           </div>
-
           {/* Languages Section */}
-          <div className="mb-8">
-            <h2 className="text-[14px] font-bold uppercase mb-3 border-b border-white/30 pb-1">
+          <div className="mb-[8px] mt-[15px]">
+            <h2 className="text-[20px] font-bold uppercase mb-3 text-[##1ab0b3] border-b border-white pb-1">
               Languages
             </h2>
             <div className="space-y-2">
               {languages?.map((lang, index) => (
-                <div key={index} className="text-[13px] flex justify-between">
+                <div key={index} className="text-[14px] flex justify-between">
                   <span>{lang.name}</span>
                   <span className="opacity-90">{lang.level}</span>
                 </div>
               ))}
             </div>
           </div>
-
-          {/* Favorite Quote Section */}
-          <div className="mt-auto">
-            <h2 className="text-[14px] font-bold uppercase mb-3 border-b border-white/30 pb-1">
+         {/* Favorite Quote Section */}
+         <div className="mt-[15px] mb-[8px]">
+            <h2 className="text-[20px] font-bold uppercase mb-3 text-[##1ab0b3] border-b border-white pb-1">
               Favorite Quote
             </h2>
-            <div className="text-[13px] italic opacity-90">
+            <div className="text-[16px] ">
               "Quality means doing it right when no one is looking."
-              <div className="mt-1 text-[12px]">- Henry Ford</div>
+              <div className="mt-1 text-[14px]">- Henry Ford</div>
             </div>
           </div>
         </div>
+
+          
+
+         
 
         {/* Main Content Area */}
         <div className="flex-1 p-[20px]">
         <div className=" text-[13px] mb-[20px]">
           <div>
 
-            <h2 className="text-[18px] text-[#1ab0b3] font-normal ">{header.title}</h2>
+            <h2 className="text-[18px] text-[#1ab0b3] font-semibold ">{header.title}</h2>
           </div>
-          <div className="flex text-[13px] gap-[10px]">
+          <div className="flex items-center justify-between text-[12px] gap-[8px]">
 
-              <div>{header.email}</div>
+              
+              <div className="flex items-center gap-[4px]"><FaEnvelope className="text-gray-500 shrink-0" />{header.email}</div>
               {/* <div>{header.phone}</div> */}
-              <div>{header.location}</div>
-              {header.github && <div>{header.github}</div>}
+              <div className="flex items-center gap-[4px]">
+              <FaMapMarkerAlt className="text-gray-500 shrink-0" />
+              {header.location}</div>
+              {header.github && <div className="flex items-center gap-[4px]">
+              <FaGithub className="text-gray-500 shrink-0" />
+              {header.github}</div>}
           </div>
             </div>
           {/* Summary Section */}
-          <div className="mb-8">
-            <h2 className="text-[14px] font-bold text-[#333] uppercase mb-3 border-b border-gray-300 pb-1">
+          <div className="mb-[8px]">
+            <h2 className="text-[20px] font-semibold text-[#384347] uppercase mb-3 border-b border-[#bdbdbd] pb-1">
               Summary
             </h2>
-            <p className="text-[13px] text-[#444] leading-relaxed">
+            <p className="text-[15px] text-[#444] leading-relaxed">
               {header.summary}
             </p>
           </div>
 
           {/* Experience Section */}
-          <div className="mb-8">
-            <h2 className="text-[14px] font-bold text-[#333] uppercase mb-3 border-b border-gray-300 pb-1">
+          <div className="mb-[8px] mt-[15px]">
+            <h2 className="text-[20px] font-semibold text-[#384347] uppercase mb-3 border-b border-[#bdbdbd] pb-1">
               Experience
             </h2>
             <div className="space-y-6">
@@ -151,15 +163,15 @@ const ProfessionalTemplate: FC<TemplateProps> = ({
                 <div key={index} className="text-[13px]">
                   <div className="flex justify-between items-start mb-2">
                     <div>
-                      <h3 className="font-semibold text-[#333]">{exp.position}</h3>
-                      <div className="text-[#666]">{exp.company}</div>
+                      <h3 className="font-semibold text-[18px] text-[#333]">{exp.position}</h3>
+                      <div className="text-[#1ab0b3] text-[18px] ">{exp.company}</div>
                     </div>
-                    <div className="text-[#666] text-right">
+                    <div className="text-[#666] text-[14px] text-right">
                       <div>{exp.city}</div>
                       <div>{exp.date}</div>
                     </div>
                   </div>
-                  <ul className="list-disc ml-4 text-[#444] space-y-1">
+                  <ul className="list-disc ml-4 text-[#444] text-[15px] space-y-1">
                     {exp.responsibilities?.map((resp, idx) => (
                       <li key={idx}>{resp}</li>
                     ))}
@@ -168,10 +180,24 @@ const ProfessionalTemplate: FC<TemplateProps> = ({
               ))}
             </div>
           </div>
+           {/* Skills Section */}
+           <div className="mb-[8px] mt-[15px]">
+            <h2 className="text-[20px] font-semibold text-[#384347] uppercase mb-3 border-b border-[#bdbdbd] pb-1">
+              Skills
+            </h2>
+            <div className="text-[15px] text-[#444]">
+              {skills?.map((category, index) => (
+                <div key={index} className="mb-2">
+                  <span className="font-semibold text-[16px]">{category.name}:</span>{' '}
+                  <span>{category.skills.join('- ')}</span>
+                </div>
+              ))}
+            </div>
+          </div>
 
           {/* Education Section */}
-          <div className="mb-8">
-            <h2 className="text-[14px] font-bold text-[#333] uppercase mb-3 border-b border-gray-300 pb-1">
+          <div className="mb-[8px] mt-[15px]">
+            <h2 className="text-[20px] font-semibold text-[#384347] uppercase mb-3 border-b border-[#bdbdbd] pb-1">
               Education
             </h2>
             <div className="space-y-4">
@@ -179,10 +205,10 @@ const ProfessionalTemplate: FC<TemplateProps> = ({
                 <div key={index} className="text-[13px]">
                   <div className="flex justify-between items-start">
                     <div>
-                      <h3 className="font-semibold text-[#333]">{edu.degree}</h3>
-                      <div className="text-[#666]">{edu.institution}</div>
+                      <h3 className="font-semibold text-[18px] text-[#384347]">{edu.degree}</h3>
+                      <div className="text-[#1ab0b3] text-[18px]">{edu.institution}</div>
                     </div>
-                    <div className="text-[#666] text-right">
+                    <div className="text-[#666] text-[14px] text-right">
                       <div>{edu.city}</div>
                       <div>{edu.date}</div>
                     </div>
@@ -192,20 +218,7 @@ const ProfessionalTemplate: FC<TemplateProps> = ({
             </div>
           </div>
 
-          {/* Skills Section */}
-          <div className="mb-8">
-            <h2 className="text-[14px] font-bold text-[#333] uppercase mb-3 border-b border-gray-300 pb-1">
-              Skills
-            </h2>
-            <div className="text-[13px] text-[#444]">
-              {skills?.map((category, index) => (
-                <div key={index} className="mb-2">
-                  <span className="font-semibold">{category.name}:</span>{' '}
-                  <span>{category.skills.join(', ')}</span>
-                </div>
-              ))}
-            </div>
-          </div>
+         
         </div>
       </div>
     </div>

@@ -37,7 +37,7 @@ body {
     margin: 0;
     padding: 0;
     width: 210mm;
-    height: 297mm;
+    height: 293mm;
   }
   
   .resume-pages {
@@ -235,7 +235,7 @@ body {
 
 .pdf-container {
   width: 210mm;
-  height: 297mm;
+  height: 293mm;
   background: white;
   overflow: hidden;
   box-sizing: border-box;
